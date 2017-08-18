@@ -7,49 +7,11 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     tools:context="ua.in.zeusapps.snapsafari.activities.MenuActivity">
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:src="@drawable/menu"
-        android:layout_marginTop="24dp"
-        android:layout_marginRight="16dp"
-        android:layout_gravity="top|right"
-
-        android:id="@+id/activity_menu_menu"/>
-
-
-    <FrameLayout
+    <ua.in.zeusapps.snapsafari.controls.Menu
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ua.in.zeusapps.snapsafari.controls.BottomMenu
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="16dp">
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="48dp"
-            android:layout_gravity="left|center_vertical"
-            android:background="@drawable/button_white"
-            android:src="@drawable/card_collection"
-
-            android:id="@+id/activity_menu_card_collection"/>
-        <ImageButton
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@android:color/transparent"
-            android:src="@drawable/position"
-
-            android:id="@+id/activity_menu_position"/>
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="48dp"
-            android:layout_gravity="right|center_vertical"
-            android:background="@drawable/button_white"
-            android:src="@drawable/take_picture"
-
-            android:id="@+id/activity_menu_take_picture"/>
-    </FrameLayout>
-
-
+        android:layout_gravity="bottom"/>
 </FrameLayout>
