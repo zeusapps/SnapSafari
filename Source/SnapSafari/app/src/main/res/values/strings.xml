@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Snap Safari</string>
+    <string name="activity_login_welcome">Welcome to Snap Safari</string>
+    <string name="activity_login_twitter_login">Login with Twitter</string>
+    <string name="activity_login_facebook_login">Login with Facebook</string>
+    <string name="activity_login_gmail_login">Login with Gmail</string>
+    <string name="activity_login_try_it">Let me try Snap Safari</string>
+</resources>
