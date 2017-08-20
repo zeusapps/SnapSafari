@@ -1,16 +1,14 @@
 package ua.in.zeusapps.snapsafari.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ua.in.zeusapps.snapsafari.R;
-import ua.in.zeusapps.snapsafari.controls.BottomMenu;
 
 public class MenuActivity extends AppCompatActivity {
     @Override
@@ -41,5 +39,8 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, ElephantActivity.class);
+        startActivity(intent);
     }
 }
