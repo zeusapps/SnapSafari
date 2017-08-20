@@ -45,4 +45,12 @@ public class Menu extends FrameLayout {
 
         ButterKnife.bind(this, this);
     }
+
+    public void setOnClickListener(OnClickListener listener){
+        _menuButton.setOnClickListener(listener);
+    }
+
+    public ImageButton getMenuButton() {
+        return _menuButton;
+    }
 }

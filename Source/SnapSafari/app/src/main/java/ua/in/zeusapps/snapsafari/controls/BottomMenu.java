@@ -9,7 +9,6 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
@@ -56,5 +55,23 @@ public class BottomMenu extends FrameLayout {
         inflater.inflate(R.layout.botton_menu, this);
 
         ButterKnife.bind(this, this);
+    }
+
+    public void setOnClickListener(OnClickListener listener){
+        _cardCollectionButton.setOnClickListener(listener);
+        _takePictureButton.setOnClickListener(listener);
+        _positionButton.setOnClickListener(listener);
+    }
+
+    public ImageButton getCardCollectionButton() {
+        return _cardCollectionButton;
+    }
+
+    public ImageButton getTakePictureButton() {
+        return _takePictureButton;
+    }
+
+    public ImageButton getPositionButton() {
+        return _positionButton;
     }
 }
