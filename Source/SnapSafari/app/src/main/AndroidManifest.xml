@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".activities.MenuActivity">
         </activity>
+        <activity android:name=".activities.ElephantActivity">
+        </activity>
     </application>
 
 </manifest>
