@@ -9,9 +9,11 @@
     tools:context="ua.in.zeusapps.snapsafari.activities.MenuActivity">
     <ua.in.zeusapps.snapsafari.controls.Menu
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_menu_menu"/>
     <ua.in.zeusapps.snapsafari.controls.BottomMenu
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
+        android:layout_gravity="bottom"
+        android:id="@+id/activity_menu_bottom_menu"/>
 </FrameLayout>
