@@ -1,5 +1,6 @@
 package ua.in.zeusapps.snapsafari.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ua.in.zeusapps.snapsafari.R;
 
 public class SnapActivity extends AppCompatActivity {
@@ -31,5 +33,12 @@ public class SnapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_snap);
 
         ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.activity_snap_snap_it_button)
+    public void onClick(){
+        Intent intent = new Intent(this, ElephantDisabledActivity.class);
+
+        startActivity(intent);
     }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context="ua.in.zeusapps.snapsafari.activities.ElephantDisabledActivity">
+
+    <ua.in.zeusapps.snapsafari.controls.Menu
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activity_elephant_disabled_menu"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/activity_elephant_disabled_content"
+            android:layout_margin="8dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/message_alert_background"
+                android:text="@string/activity_elephant_disabled_label"
+                android:paddingTop="16dp"
+                android:textColor="@color/colorLabel"
+                android:textSize="22sp"
+                android:textAlignment="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:id="@+id/activity_elephant_disabled_label"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/elephant"
+
+                android:id="@+id/activity_elephant_disabled_image"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            app:srcCompat="@drawable/lock"/>
+    </FrameLayout>
+
+
+
+
+
+    <ua.in.zeusapps.snapsafari.controls.BottomMenu
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:id="@+id/activity_elephant_disabled_bottom_menu"/>
+
+</LinearLayout>
