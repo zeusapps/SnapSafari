@@ -6,4 +6,8 @@
     <string name="activity_login_gmail_login">Login with Gmail</string>
     <string name="activity_login_try_it">Let me try Snap Safari</string>
     <string name="activity_elephant_label">Earth Elephant</string>
+    <string name="activity_snap_button">Snap it!</string>
+    <string name="activity_snap_name">Earth Elephant</string>
+    <string name="activity_snap_level">Level 2</string>
+    <string name="activity_snap_description">Ut imperdiet volutpat aliquam. Ut semper dolor elit, sem mattis mi semper vitae. Curabitur id elit lectus. Phasellus maximus justo dictum porritor.</string>
 </resources>
