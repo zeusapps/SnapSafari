@@ -22,6 +22,8 @@
         </activity>
         <activity android:name=".activities.ElephantActivity">
         </activity>
+        <activity android:name=".activities.SnapActivity">
+        </activity>
     </application>
 
 </manifest>
