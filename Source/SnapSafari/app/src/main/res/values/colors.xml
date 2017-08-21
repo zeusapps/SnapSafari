@@ -11,4 +11,5 @@
 
     <color name="colorLabel">#541712</color>
     <color name="colorGray">#a59190</color>
+    <color name="colorMenuDark">#fdcd2b</color>
 </resources>

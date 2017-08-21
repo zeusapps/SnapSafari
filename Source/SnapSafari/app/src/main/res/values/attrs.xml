@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Menu">
+        <attr name="style" format="enum">
+            <enum name="dark" value="1"/>
+            <enum name="light" value="0"/>
+        </attr>
+        <attr name="title" format="string"/>
+    </declare-styleable>
+</resources>
