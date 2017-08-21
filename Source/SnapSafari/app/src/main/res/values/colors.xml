@@ -7,6 +7,8 @@
     <color name="colorTwitter">#79ccf0</color>
     <color name="colorFacebook">#547bbd</color>
     <color name="colorGmail">#c2271b</color>
+    <color name="colorSnap">#359127</color>
 
-    <color name="labelColor">#541712</color>
+    <color name="colorLabel">#541712</color>
+    <color name="colorGray">#a59190</color>
 </resources>
