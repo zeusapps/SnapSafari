@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#541712</color>
 
     <color name="colorTwitter">#79ccf0</color>
     <color name="colorFacebook">#547bbd</color>
@@ -11,4 +11,6 @@
 
     <color name="colorLabel">#541712</color>
     <color name="colorGray">#a59190</color>
+    <color name="colorMenuDark">#fdcd2b</color>
+    <color name="colorSnapCards">#f4e6cb</color>
 </resources>
