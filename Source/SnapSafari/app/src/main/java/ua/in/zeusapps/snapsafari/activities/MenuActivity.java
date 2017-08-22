@@ -22,8 +22,9 @@ public class MenuActivity extends AppCompatActivity {
     @OnClick({ R.id.activity_menu_bottom_menu, R.id.activity_menu_menu})
     public void onClick(View view){
         String text = "Clicked ";
+        int id = view.getId();
 
-        switch (view.getId()){
+        switch (id){
             case R.id.bottom_menu_card_collection:
                 text += "left button";
                 break;
@@ -40,7 +41,11 @@ public class MenuActivity extends AppCompatActivity {
 
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(this, ElephantActivity.class);
+        Class cls = id == R.id.bottom_menu_card_collection
+                ? SnapCardsActivity.class
+                : ElephantActivity.class;
+
+        Intent intent = new Intent(this, cls);
         startActivity(intent);
     }
 }

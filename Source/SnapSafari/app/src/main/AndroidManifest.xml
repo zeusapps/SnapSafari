@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".activities.ElephantDisabledActivity">
         </activity>
+        <activity android:name=".activities.SnapCardsActivity">
+        </activity>
     </application>
 
 </manifest>
