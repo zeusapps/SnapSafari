@@ -36,8 +36,8 @@ public class LoginActivity extends AppCompatActivity {
             R.id.activity_login_gmail_login,
             R.id.activity_login_try_it_login})
     public void onLogin(){
-        Intent intent = new Intent(this, MenuActivity.class);
-
+        Intent intent = new Intent(this, MainMenuActivity.class);
         startActivity(intent);
+        finish();
     }
 }
