@@ -13,4 +13,7 @@
     <color name="colorGray">#a59190</color>
     <color name="colorMenuDark">#fdcd2b</color>
     <color name="colorSnapCards">#f4e6cb</color>
+    <color name="colorMenu">#fdca2a</color>
+    <color name="colorMenuInfoBackground">#3c1e09</color>
+    <color name="colorProfileImgBorder">#09917a</color>
 </resources>
