@@ -2,20 +2,20 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="16dp">
+    android:layout_height="80dp"
+    android:layout_margin="4dp">
     <ImageButton
         android:layout_width="82dp"
         android:layout_height="60dp"
         android:layout_gravity="left|center_vertical"
         android:src="@drawable/card_collection"
-        android:background="@android:color/transparent"
+        android:background="?attr/selectableItemBackground"
         android:id="@+id/bottom_menu_card_collection"/>
     <ImageButton
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_gravity="center"
-        android:background="@android:color/transparent"
+        android:background="?attr/selectableItemBackground"
         android:src="@drawable/position"
 
         android:id="@+id/bottom_menu_position"/>
@@ -24,6 +24,6 @@
         android:layout_height="60dp"
         android:layout_gravity="right|center_vertical"
         android:src="@drawable/take_picture"
-        android:background="@android:color/transparent"
+        android:background="?attr/selectableItemBackground"
         android:id="@+id/bottom_menu_take_picture"/>
 </FrameLayout>
