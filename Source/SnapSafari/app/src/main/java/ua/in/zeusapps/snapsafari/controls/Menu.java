@@ -1,5 +1,6 @@
 package ua.in.zeusapps.snapsafari.controls;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -18,12 +19,15 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ua.in.zeusapps.snapsafari.R;
 
 public class Menu extends FrameLayout {
 
     @BindView(R.id.menu_hamburger)
     ImageButton _menuButton;
+    @BindView(R.id.menu_back)
+    ImageButton _backButton;
     @BindView(R.id.menu_title)
     TextView _titleTextView;
 
@@ -73,6 +77,20 @@ public class Menu extends FrameLayout {
         _titleTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorLabel));
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.menu_dark);
         _menuButton.setImageBitmap(icon);
+        Bitmap back = BitmapFactory.decodeResource(getResources(), R.drawable.menu_back_dark);
+        _backButton.setImageBitmap(back);
+    }
+
+    @OnClick(R.id.menu_back)
+    public void onBackPressed(){
+        try {
+            Activity activity = (Activity) getContext();
+            if (activity != null) {
+                activity.finish();
+            }
+        } catch (Throwable throwable) {
+            //
+        }
     }
 
     public void setOnClickListener(OnClickListener listener){
