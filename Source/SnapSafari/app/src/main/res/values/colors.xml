@@ -16,4 +16,5 @@
     <color name="colorMenu">#fdca2a</color>
     <color name="colorMenuInfoBackground">#3c1e09</color>
     <color name="colorProfileImgBorder">#09917a</color>
+    <color name="colorPromoBackground">#fdfdfe</color>
 </resources>
