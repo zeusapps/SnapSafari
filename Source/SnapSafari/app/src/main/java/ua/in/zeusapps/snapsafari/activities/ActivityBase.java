@@ -12,6 +12,7 @@ public abstract class ActivityBase extends AppCompatActivity {
 
     private final static String APP_NAME = App.class.getName();
     private final static String TOKEN_NAME = "token";
+    private final static String TOKEN_SUFFIX = "Token ";
 
     private App _app;
     protected App getApp(){
@@ -39,6 +40,8 @@ public abstract class ActivityBase extends AppCompatActivity {
     }
 
     protected void saveToken(String token){
+        token = TOKEN_SUFFIX + token;
+
         getSharedPreferences(APP_NAME, MODE_APPEND)
                 .edit()
                 .putString(TOKEN_NAME, token)
