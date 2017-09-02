@@ -1,0 +1,119 @@
+package ua.in.zeusapps.snapsafari.models;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Card {
+
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("promo")
+    @Expose
+    private Promo promo;
+    @SerializedName("element")
+    @Expose
+    private String element;
+    @SerializedName("value")
+    @Expose
+    private Integer value;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("second_title")
+    @Expose
+    private String secondTitle;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("power_capability")
+    @Expose
+    private String powerCapability;
+    @SerializedName("image")
+    @Expose
+    private String image;
+    @SerializedName("constant_card")
+    @Expose
+    private Integer constantCard;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Promo getPromo() {
+        return promo;
+    }
+
+    public void setPromo(Promo promo) {
+        this.promo = promo;
+    }
+
+    public String getElement() {
+        return element;
+    }
+
+    public void setElement(String element) {
+        this.element = element;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSecondTitle() {
+        return secondTitle;
+    }
+
+    public void setSecondTitle(String secondTitle) {
+        this.secondTitle = secondTitle;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPowerCapability() {
+        return powerCapability;
+    }
+
+    public void setPowerCapability(String powerCapability) {
+        this.powerCapability = powerCapability;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public Integer getConstantCard() {
+        return constantCard;
+    }
+
+    public void setConstantCard(Integer constantCard) {
+        this.constantCard = constantCard;
+    }
+
+}
