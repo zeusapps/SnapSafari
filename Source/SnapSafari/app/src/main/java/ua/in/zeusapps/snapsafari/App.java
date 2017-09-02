@@ -1,6 +1,7 @@
 package ua.in.zeusapps.snapsafari;
 
 import android.app.Application;
+import android.net.Uri;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -9,7 +10,7 @@ import ua.in.zeusapps.snapsafari.services.SnapSafariService;
 
 public class App extends Application {
 
-    private static final String BASE_URL = "http://46.101.73.111:7000/";
+    public static final String BASE_URL = "http://46.101.73.111:7000/";
 
     private SnapSafariService _service;
 
@@ -26,5 +27,9 @@ public class App extends Application {
 
     public SnapSafariService getService() {
         return _service;
+    }
+
+    public Uri getUri(String relativePath){
+        return Uri.withAppendedPath(Uri.parse(BASE_URL), relativePath);
     }
 }
