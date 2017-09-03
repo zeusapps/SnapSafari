@@ -1,13 +1,16 @@
 package ua.in.zeusapps.snapsafari.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Card {
+public class Card implements Parcelable {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("promo")
     @Expose
     private Promo promo;
@@ -16,7 +19,7 @@ public class Card {
     private String element;
     @SerializedName("value")
     @Expose
-    private Integer value;
+    private int value;
     @SerializedName("title")
     @Expose
     private String title;
@@ -34,9 +37,13 @@ public class Card {
     private String image;
     @SerializedName("constant_card")
     @Expose
-    private Integer constantCard;
+    private int constantCard;
 
-    public Integer getId() {
+    public Card(){
+
+    }
+
+    public int getId() {
         return id;
     }
 
@@ -60,7 +67,7 @@ public class Card {
         this.element = element;
     }
 
-    public Integer getValue() {
+    public int getValue() {
         return value;
     }
 
@@ -108,7 +115,7 @@ public class Card {
         this.image = image;
     }
 
-    public Integer getConstantCard() {
+    public int getConstantCard() {
         return constantCard;
     }
 
@@ -116,4 +123,47 @@ public class Card {
         this.constantCard = constantCard;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(value);
+        dest.writeInt(constantCard);
+        dest.writeParcelable(promo, flags);
+        dest.writeString(element);
+        dest.writeString(title);
+        dest.writeString(secondTitle);
+        dest.writeString(description);
+        dest.writeString(powerCapability);
+        dest.writeString(image);
+    }
+
+    private Card(Parcel in) {
+        id = in.readInt();
+        value = in.readInt();
+        constantCard = in.readInt();
+        promo = in.readParcelable(Promo.class.getClassLoader());
+        element = in.readString();
+        title = in.readString();
+        secondTitle = in.readString();
+        description = in.readString();
+        powerCapability = in.readString();
+        image = in.readString();
+    }
+
+    public static final Creator<Card> CREATOR = new Creator<Card>() {
+        @Override
+        public Card createFromParcel(Parcel in) {
+            return new Card(in);
+        }
+
+        @Override
+        public Card[] newArray(int size) {
+            return new Card[size];
+        }
+    };
 }

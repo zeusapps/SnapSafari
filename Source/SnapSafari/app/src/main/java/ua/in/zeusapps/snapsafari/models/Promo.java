@@ -1,13 +1,17 @@
 package ua.in.zeusapps.snapsafari.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.widget.ProgressBar;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Promo {
+public class Promo implements Parcelable {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("title")
     @Expose
     private String title;
@@ -27,7 +31,11 @@ public class Promo {
     @Expose
     private String image;
 
-    public Integer getId() {
+    public Promo(){
+
+    }
+
+    public int getId() {
         return id;
     }
 
@@ -83,4 +91,41 @@ public class Promo {
         this.image = image;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(term);
+        dest.writeString(promoCode);
+        dest.writeString(expiryDate);
+        dest.writeString(image);
+    }
+
+    private Promo(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        description = in.readString();
+        term = in.readString();
+        promoCode = in.readString();
+        expiryDate = in.readString();
+        image = in.readString();
+    }
+
+    public static final Creator<Promo> CREATOR = new Creator<Promo>() {
+        @Override
+        public Promo createFromParcel(Parcel in) {
+            return new Promo(in);
+        }
+
+        @Override
+        public Promo[] newArray(int size) {
+            return new Promo[size];
+        }
+    };
 }
