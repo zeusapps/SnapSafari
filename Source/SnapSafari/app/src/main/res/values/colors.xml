@@ -8,6 +8,7 @@
     <color name="colorFacebook">#547bbd</color>
     <color name="colorGmail">#c2271b</color>
     <color name="colorSnap">#359127</color>
+    <color name="colorRedeem">#df6c17</color>
 
     <color name="colorLabel">#541712</color>
     <color name="colorGray">#a59190</color>
@@ -17,4 +18,6 @@
     <color name="colorMenuInfoBackground">#3c1e09</color>
     <color name="colorProfileImgBorder">#09917a</color>
     <color name="colorPromoBackground">#fdfdfe</color>
+    <color name="colorPromoTerm">#a32155</color>
+    <color name="colorPromoCode">#0072bb</color>
 </resources>
