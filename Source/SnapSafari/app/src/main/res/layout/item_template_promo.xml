@@ -8,14 +8,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/item_template_promo_card_image"
+            android:adjustViewBounds="true"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/item_template_promo_card_image"/>
+            android:layout_marginTop="40dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
