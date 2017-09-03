@@ -48,7 +48,7 @@ public class LoginActivity extends ActivityBase {
                     public void accept(Token token) throws Exception {
                         saveToken(token.getKey());
 
-                        Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                         startActivity(intent);
                         finish();
                     }

@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ua.in.zeusapps.snapsafari">
+          package="ua.in.zeusapps.snapsafari">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".App"
         android:theme="@style/AppTheme">
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".activities.MenuActivity"></activity>
-        <activity android:name=".activities.ElephantActivity"></activity>
-        <activity android:name=".activities.SnapActivity"></activity>
-        <activity android:name=".activities.ElephantDisabledActivity"></activity>
-        <activity android:name=".activities.SnapCardsActivity"></activity>
-        <activity android:name=".activities.MainMenuActivity"></activity>
-        <activity android:name=".activities.PromoActivity"></activity>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".activities.BlankActivity"/>
+        <activity android:name=".activities.ElephantActivity"/>
+        <activity android:name=".activities.SnapActivity"/>
+        <activity android:name=".activities.ElephantDisabledActivity"/>
+        <activity android:name=".activities.SnapCardsActivity"/>
+        <activity android:name=".activities.MenuActivity"/>
+        <activity android:name=".activities.PromoActivity"/>
+        <activity android:name=".activities.PromoDetailsActivity">
+        </activity>
     </application>
 
 </manifest>

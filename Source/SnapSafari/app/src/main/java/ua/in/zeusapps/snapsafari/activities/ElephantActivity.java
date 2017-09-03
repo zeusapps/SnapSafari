@@ -2,6 +2,7 @@ package ua.in.zeusapps.snapsafari.activities;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -24,10 +26,18 @@ import ua.in.zeusapps.snapsafari.common.Layout;
 import ua.in.zeusapps.snapsafari.controls.BottomMenu;
 import ua.in.zeusapps.snapsafari.controls.Menu;
 import ua.in.zeusapps.snapsafari.models.Card;
+import ua.in.zeusapps.snapsafari.models.Event;
+import ua.in.zeusapps.snapsafari.models.EventRequest;
 
 
 @Layout(R.layout.activity_elephant)
 public class ElephantActivity extends ActivityBase {
+
+    private static final float RADIUS = 1000;
+    private static final float LONGITUDE = 0;
+    private static final float LATITUDE = 0;
+
+    private Card _card;
 
     @BindView(R.id.activity_elephant_menu)
     Menu _menu;
@@ -41,21 +51,31 @@ public class ElephantActivity extends ActivityBase {
     TextView _labelTextView;
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        EventRequest request = new EventRequest(LATITUDE, LONGITUDE, RADIUS);
 
         getApp()
                 .getService()
-                .getCardsList(getToken())
+                .getEvents(getToken(), request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<Card>>() {
+                .subscribe(new Consumer<List<Event>>() {
             @Override
-            public void accept(@NonNull List<Card> cards) throws Exception {
+            public void accept(@NonNull List<Event> events) throws Exception {
+                List<Card> cards = new ArrayList<>();
+
+                for (Event event: events){
+                    for (Card card: event.getCards()){
+                        cards.add(card);
+                    }
+                }
+
                 if (cards.size() > 0) {
                     Random r = new Random();
-                    Card card = cards.get(r.nextInt(cards.size()));
-                    showCard(card);
+                    _card = cards.get(r.nextInt(cards.size()));
+                    showCard(_card);
                 } else {
                     showNoContent();
                 }
@@ -74,8 +94,19 @@ public class ElephantActivity extends ActivityBase {
             R.id.activity_elephant_bottom_menu
     })
     public void onClick(View view){
-        Intent intent = new Intent(this, SnapActivity.class);
+        if (_card == null){
+            return;
+        }
 
+        Intent intent;
+        if (_card.getPromo() == null) {
+            intent = new Intent(this, SnapActivity.class);
+            intent.putExtra(SnapActivity.CARD_EXTRA, _card);
+        }
+        else {
+            intent = new Intent(this, PromoActivity.class);
+            intent.putExtra(PromoActivity.CARD_EXTRA, _card);
+        }
         startActivity(intent);
     }
 
