@@ -10,7 +10,9 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/elephant"/>
+        app:srcCompat="@drawable/elephant"
+
+        android:id="@+id/item_template_elephant_image"/>
 
 
     <TextView
@@ -18,6 +20,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorAccent"
         android:textAlignment="center"
-        android:text="@string/activity_elephant_label"/>
+        android:text="@string/activity_elephant_label"
+
+        android:id="@+id/item_template_elephant_title"/>
 
 </LinearLayout>

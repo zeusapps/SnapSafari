@@ -1,6 +1,5 @@
 package ua.in.zeusapps.snapsafari.fragments;
 
-
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,28 +19,30 @@ import ua.in.zeusapps.snapsafari.R;
 import ua.in.zeusapps.snapsafari.common.Layout;
 import ua.in.zeusapps.snapsafari.models.SnappedCard;
 
-@Layout(R.layout.fragment_elephant)
-public class ElephantFragment extends FragmentBase {
-    private Adapter _adapter;
-
-    @BindView(R.id.fragment_elephant_recyclerView)
+@Layout(R.layout.fragment_promo)
+public class PromoFragment extends FragmentBase {
+    @BindView(R.id.fragment_promo_recyclerView)
     RecyclerView _recyclerView;
-
-    public void addCards(List<SnappedCard> cards){
-        _adapter.addCards(cards);
-    }
+    Adapter _adapter;
 
     @Override
-    protected void init(){
+    protected void init() {
         _adapter = new Adapter();
         _recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         _recyclerView.setAdapter(_adapter);
     }
 
+    public void addCards(List<SnappedCard> cards){
+        _adapter.addCards(cards);
+    }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.item_template_elephant_image)
+        @BindView(R.id.item_template_promo_card_image)
+        ImageView _cardImage;
+        @BindView(R.id.item_template_promo_image)
         ImageView _image;
-        @BindView(R.id.item_template_elephant_title)
+        @BindView(R.id.item_template_promo_title)
         TextView _title;
 
         public ViewHolder(View itemView) {
@@ -51,7 +52,14 @@ public class ElephantFragment extends FragmentBase {
         }
 
         public void update(SnappedCard card){
-            Picasso.with(getContext()).load(getApp().getUri(card.getCard().getImage())).into(_image);
+            Picasso
+                    .with(getContext())
+                    .load(getApp().getUri(card.getCard().getImage()))
+                    .into(_cardImage);
+            Picasso
+                    .with(getContext())
+                    .load(getApp().getUri(card.getCard().getPromo().getImage()))
+                    .into(_image);
             _title.setText(card.getCard().getTitle());
         }
     }
@@ -63,7 +71,7 @@ public class ElephantFragment extends FragmentBase {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater
-                    .from(getContext()).inflate(R.layout.item_template_elephant, parent, false);
+                    .from(getContext()).inflate(R.layout.item_template_promo, parent, false);
 
             return new ViewHolder(view);
         }
@@ -79,9 +87,13 @@ public class ElephantFragment extends FragmentBase {
         }
 
         public void addCards(List<SnappedCard> cards){
-            _snappedCards.addAll(cards);
+            for (SnappedCard card:cards) {
+                if (card.getCard().getPromo() != null){
+                    _snappedCards.add(card);
+                }
+            }
+
             notifyDataSetChanged();
         }
     }
-
 }

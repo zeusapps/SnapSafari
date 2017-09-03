@@ -19,4 +19,8 @@
     <string name="activity_main_menu_play_button">Play</string>
     <string name="activity_main_menu_snap_card_button">Snap Cards</string>
     <string name="activity_main_menu_settings_button">Settings</string>
+    <string name="activity_snap_redeem_now">Redeem now!</string>
+    <string name="activity_promo_details_promo_card">Promo card</string>
+    <string name="activity_promo_details_redeem_now">Redeem now!</string>
+    <string name="activity_promo_details_promo_code_suffix">PROMO CODE: %s</string>
 </resources>

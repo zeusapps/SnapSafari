@@ -1,25 +1,34 @@
 package ua.in.zeusapps.snapsafari.activities;
 
-import android.support.design.widget.TabItem;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import ua.in.zeusapps.snapsafari.R;
+import ua.in.zeusapps.snapsafari.common.Layout;
 import ua.in.zeusapps.snapsafari.fragments.ElephantFragment;
+import ua.in.zeusapps.snapsafari.fragments.PromoFragment;
+import ua.in.zeusapps.snapsafari.models.SnappedCard;
 
-public class SnapCardsActivity extends AppCompatActivity {
+@Layout(R.layout.activity_snap_cards)
+public class SnapCardsActivity extends ActivityBase {
+    private List<SnappedCard> _snappedCards;
+    private ElephantFragment _elephantFragment = new ElephantFragment();
+    private PromoFragment _promoFragment = new PromoFragment();
+
+
     @BindView(R.id.activity_snap_cards_tab_layout)
     TabLayout _tabLayout;
     @BindView(R.id.activity_snap_cards_view_pager)
@@ -30,9 +39,6 @@ public class SnapCardsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_snap_cards);
-
-        ButterKnife.bind(this);
         init();
     }
 
@@ -40,6 +46,21 @@ public class SnapCardsActivity extends AppCompatActivity {
         _viewPager.setAdapter(new Adapter(getSupportFragmentManager()));
         _tabLayout.setupWithViewPager(_viewPager);
 
+        getApp().getService().getMyCards(getToken())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Consumer<List<SnappedCard>>() {
+                    @Override
+                    public void accept(@NonNull List<SnappedCard> snappedCards) throws Exception {
+                        _snappedCards = snappedCards;
+                        _elephantFragment.addCards(snappedCards);
+                        _promoFragment.addCards(snappedCards);
+                        update();
+                    }
+                });
+    }
+
+    private void update(){
         for (int i = 0; i < _tabLayout.getTabCount(); i++){
             View tabView = getLayoutInflater().inflate(R.layout.tab, null, false);
 
@@ -54,6 +75,9 @@ public class SnapCardsActivity extends AppCompatActivity {
     }
 
     private String getDescription(int i) {
+
+
+
         if (i == 0){
             return getString(R.string.activity_snap_cards_snapped_animals_count);
         }
@@ -77,7 +101,11 @@ public class SnapCardsActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new ElephantFragment();
+            if (position == 0){
+                return _elephantFragment;
+            }
+
+            return _promoFragment;
         }
 
         @Override

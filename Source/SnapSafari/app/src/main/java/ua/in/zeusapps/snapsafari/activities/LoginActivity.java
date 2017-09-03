@@ -17,7 +17,7 @@ import ua.in.zeusapps.snapsafari.models.Token;
 @Layout(R.layout.activity_login)
 public class LoginActivity extends ActivityBase {
 
-    private final static String USERNAME = "manager_user";
+    private final static String USERNAME = "test_user";
     private final static String PASSWORD = "dstudio2017";
 
     @BindView(R.id.activity_login_twitter_login)
@@ -48,7 +48,7 @@ public class LoginActivity extends ActivityBase {
                     public void accept(Token token) throws Exception {
                         saveToken(token.getKey());
 
-                        Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                         startActivity(intent);
                         finish();
                     }
