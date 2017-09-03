@@ -15,7 +15,7 @@ public abstract class ActivityBase extends AppCompatActivity {
     private final static String TOKEN_SUFFIX = "Token ";
 
     private App _app;
-    protected App getApp(){
+    public App getApp(){
         if (_app != null){
             return _app;
         }
