@@ -6,28 +6,43 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ua.in.zeusapps.snapsafari.R;
+import ua.in.zeusapps.snapsafari.common.Layout;
+import ua.in.zeusapps.snapsafari.controls.Menu;
 
-public class BlankActivity extends AppCompatActivity {
+@Layout(R.layout.activity_menu)
+public class BlankActivity extends ActivityBase {
+    @BindView(R.id.activity_menu_menu)
+    Menu _menu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
 
-        ButterKnife.bind(this);
+        _menu.setOnBackPressedListener(new Menu.IMenuBackPressedListener() {
+            @Override
+            public void onBackPressed() {
+                Intent intent = new Intent(BlankActivity.this, SnapCardsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @OnClick({ R.id.activity_menu_bottom_menu, R.id.activity_menu_menu})
     public void onClick(View view){
         int id = view.getId();
 
-        Class cls = id == R.id.bottom_menu_card_collection
-                ? SnapCardsActivity.class
-                : ElephantActivity.class;
+        if (id == R.id.menu_hamburger){
+            finish();
+            return;
+        }
 
-        Intent intent = new Intent(this, cls);
-        startActivity(intent);
+        if (id == R.id.bottom_menu_center){
+            Intent intent = new Intent(this, ElephantActivity.class);
+            startActivity(intent);
+        }
     }
 }

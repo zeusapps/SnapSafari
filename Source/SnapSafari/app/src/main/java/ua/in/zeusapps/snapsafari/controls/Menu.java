@@ -24,6 +24,8 @@ import ua.in.zeusapps.snapsafari.R;
 
 public class Menu extends FrameLayout {
 
+    private IMenuBackPressedListener _backPressedListener;
+
     @BindView(R.id.menu_hamburger)
     ImageButton _menuButton;
     @BindView(R.id.menu_back)
@@ -79,17 +81,26 @@ public class Menu extends FrameLayout {
         _menuButton.setImageBitmap(icon);
         Bitmap back = BitmapFactory.decodeResource(getResources(), R.drawable.menu_back_dark);
         _backButton.setImageBitmap(back);
+
+        _backPressedListener = new IMenuBackPressedListener() {
+            @Override
+            public void onBackPressed() {
+                try {
+                    Activity activity = (Activity) getContext();
+                    if (activity != null) {
+                        activity.finish();
+                    }
+                } catch (Throwable throwable) {
+                    //
+                }
+            }
+        };
     }
 
     @OnClick(R.id.menu_back)
     public void onBackPressed(){
-        try {
-            Activity activity = (Activity) getContext();
-            if (activity != null) {
-                activity.finish();
-            }
-        } catch (Throwable throwable) {
-            //
+        if (_backPressedListener != null){
+            _backPressedListener.onBackPressed();
         }
     }
 
@@ -107,5 +118,13 @@ public class Menu extends FrameLayout {
 
     public void setTitle(String title) {
         _titleTextView.setText(title);
+    }
+
+    public void setOnBackPressedListener(IMenuBackPressedListener listener){
+        _backPressedListener = listener;
+    }
+
+    public interface IMenuBackPressedListener {
+        void onBackPressed();
     }
 }
