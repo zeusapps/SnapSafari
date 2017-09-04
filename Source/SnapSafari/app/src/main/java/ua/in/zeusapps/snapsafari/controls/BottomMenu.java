@@ -17,11 +17,11 @@ import butterknife.ButterKnife;
 import ua.in.zeusapps.snapsafari.R;
 
 public class BottomMenu extends FrameLayout {
-    @BindView(R.id.bottom_menu_card_collection)
+    @BindView(R.id.bottom_menu_left)
     ImageButton _cardCollectionButton;
-    @BindView(R.id.bottom_menu_take_picture)
+    @BindView(R.id.bottom_menu_center)
     ImageButton _takePictureButton;
-    @BindView(R.id.bottom_menu_position)
+    @BindView(R.id.bottom_menu_right)
     ImageButton _positionButton;
 
     public BottomMenu(@NonNull Context context) {
