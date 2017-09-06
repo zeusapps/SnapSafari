@@ -56,25 +56,26 @@ public class PromoDetailsActivity extends ActivityBase {
 
     @OnClick(R.id.activity_promo_details_redeem_button)
     public void onRedeem(){
-        SnapRequest request = new SnapRequest(_card.getId());
-        getApp().getService().snapCard(getToken(), request)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<SnappedCard>() {
-                    @Override
-                    public void accept(@NonNull SnappedCard snappedCard) throws Exception {
-                        Toast.makeText(PromoDetailsActivity.this, "Card snapped!", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(PromoDetailsActivity.this, SnapCardsActivity.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        Toast.makeText(PromoDetailsActivity.this, "Failed to snap card. Try later", Toast.LENGTH_SHORT).show();
-                    }
-                });
+//        SnapRequest request = new SnapRequest(_card.getId());
+//        getApp().getService().snapCard(getToken(), request)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(new Consumer<SnappedCard>() {
+//                    @Override
+//                    public void accept(@NonNull SnappedCard snappedCard) throws Exception {
+//                        Toast.makeText(PromoDetailsActivity.this, "Card snapped!", Toast.LENGTH_SHORT).show();
+//
+//                        Intent intent = new Intent(PromoDetailsActivity.this, SnapCardsActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(@NonNull Throwable throwable) throws Exception {
+//                        Toast.makeText(PromoDetailsActivity.this, "Failed to snap card. Try later", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+        Toast.makeText(this, "Redeem now!", Toast.LENGTH_SHORT).show();
     }
 
     private int getElementResource(Card card){

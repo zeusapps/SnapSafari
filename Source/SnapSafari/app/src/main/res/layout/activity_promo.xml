@@ -58,7 +58,7 @@
         app:layout_constraintVertical_bias="0.8"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="381dp"
         android:layout_height="0dp"
         android:padding="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -70,14 +70,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nakshi Nouba Elephant"
+            tools:text="Nakshi Nouba Elephant"
             android:id="@+id/activity_promo_title"
             android:textSize="18sp"
             android:textColor="@color/colorLabel"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Redeemable Card"
+            tools:text="Redeemable Card"
             android:id="@+id/activity_promo_description"
             android:textColor="@color/colorGray"/>
 
@@ -93,16 +93,17 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Buy 2 get 1 free"
+            tools:text="Buy 2 get 1 free"
             android:textColor="@color/colorPromoTerm"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:id="@+id/activity_promo_term"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Valid for 30 days"
+            tools:text="Valid for 30 days"
             android:textAlignment="center"
             android:textColor="@color/colorLabel"
             android:textAllCaps="true"

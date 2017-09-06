@@ -12,7 +12,7 @@
     <string name="activity_snap_description">Ut imperdiet volutpat aliquam. Ut semper dolor elit, sem mattis mi semper vitae. Curabitur id elit lectus. Phasellus maximus justo dictum porritor.</string>
     <string name="activity_elephant_disabled_label">Oh Snap! Can\'t get this one</string>
     <string name="activity_snap_cards_title">My Snap Cards</string>
-    <string name="activity_snap_cards_snapped_animals">Snapped Animals</string>
+    <string name="activity_snap_cards_snapped_animals">My SnapCards</string>
     <string name="activity_snap_cards_boost_cards">Boost Cards</string>
     <string name="activity_snap_cards_description">%1$d/%2$d</string>
     <string name="activity_main_menu_play_button">Play</string>
@@ -22,4 +22,6 @@
     <string name="activity_promo_details_promo_card">Promo card</string>
     <string name="activity_promo_details_redeem_now">Redeem now!</string>
     <string name="activity_promo_details_promo_code_suffix">PROMO CODE: %s</string>
+    <string name="fragment_boost_cards_text">Blank for now</string>
+    <string name="activity_snap_cards_promo_cards">Promo Cards</string>
 </resources>

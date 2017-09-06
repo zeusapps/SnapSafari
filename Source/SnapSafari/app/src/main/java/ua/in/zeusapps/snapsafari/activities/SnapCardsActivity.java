@@ -25,7 +25,9 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import ua.in.zeusapps.snapsafari.R;
 import ua.in.zeusapps.snapsafari.common.Layout;
+import ua.in.zeusapps.snapsafari.fragments.BoostCardsFragment;
 import ua.in.zeusapps.snapsafari.fragments.ElephantFragment;
+import ua.in.zeusapps.snapsafari.fragments.FragmentBase;
 import ua.in.zeusapps.snapsafari.fragments.PromoFragment;
 import ua.in.zeusapps.snapsafari.models.SnappedCard;
 
@@ -35,8 +37,9 @@ public class SnapCardsActivity extends ActivityBase {
     private String _selectedFilter = "E";
 
     private List<SnappedCard> _snappedCards;
-    private ElephantFragment _elephantFragment = new ElephantFragment();
-    private PromoFragment _promoFragment = new PromoFragment();
+    private ElephantFragment _elephantFragment;
+    private BoostCardsFragment _boostCardsFragment;
+    private PromoFragment _promoFragment;
     private TabViewHolder _tabHolder1;
     private TabViewHolder _tabHolder2;
     private TabViewHolder _tabHolder3;
@@ -65,6 +68,10 @@ public class SnapCardsActivity extends ActivityBase {
     }
 
     private void init(){
+        _elephantFragment = new ElephantFragment();
+        _boostCardsFragment = new BoostCardsFragment();
+        _promoFragment = new PromoFragment();
+
         _viewPager.setAdapter(new Adapter(getSupportFragmentManager()));
         _tabLayout.setupWithViewPager(_viewPager);
 
@@ -80,17 +87,21 @@ public class SnapCardsActivity extends ActivityBase {
                     @Override
                     public void accept(@NonNull List<SnappedCard> snappedCards) throws Exception {
                         _snappedCards = snappedCards;
-                        _elephantFragment.addCards(snappedCards);
-                        _promoFragment.addCards(snappedCards);
 
                         View tab = getNewTab();
                         _tabHolder1 = new TabViewHolder(tab);
                         _tabHolder1.setTitle(getString(R.string.activity_snap_cards_snapped_animals));
                         _tabLayout.getTabAt(0).setCustomView(tab);
+
+                        tab = getNewTab();
+                        _tabHolder2 = new TabViewHolder(tab);
+                        _tabHolder2.setTitle(getString(R.string.activity_snap_cards_boost_cards));
+                        _tabLayout.getTabAt(1).setCustomView(tab);
+
                         tab = getNewTab();
                         _tabHolder3 = new TabViewHolder(tab);
-                        _tabHolder3.setTitle(getString(R.string.activity_snap_cards_boost_cards));
-                        _tabLayout.getTabAt(1).setCustomView(tab);
+                        _tabHolder3.setTitle(getString(R.string.activity_snap_cards_promo_cards));
+                        _tabLayout.getTabAt(2).setCustomView(tab);
 
                         update();
                     }
@@ -162,22 +173,24 @@ public class SnapCardsActivity extends ActivityBase {
 
     class Adapter extends FragmentPagerAdapter{
 
+        private List<FragmentBase> _fragments = new ArrayList<>();
+
         public Adapter(FragmentManager fm) {
             super(fm);
+
+            _fragments.add(_elephantFragment);
+            _fragments.add(_boostCardsFragment);
+            _fragments.add(_promoFragment);
         }
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0){
-                return _elephantFragment;
-            }
-
-            return _promoFragment;
+            return _fragments.get(position);
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return _fragments.size();
         }
     }
 

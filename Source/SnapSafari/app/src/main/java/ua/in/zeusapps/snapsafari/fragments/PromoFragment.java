@@ -1,5 +1,6 @@
 package ua.in.zeusapps.snapsafari.fragments;
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ua.in.zeusapps.snapsafari.R;
+import ua.in.zeusapps.snapsafari.activities.PromoActivity;
 import ua.in.zeusapps.snapsafari.common.Layout;
 import ua.in.zeusapps.snapsafari.models.SnappedCard;
 
@@ -23,11 +25,10 @@ import ua.in.zeusapps.snapsafari.models.SnappedCard;
 public class PromoFragment extends FragmentBase {
     @BindView(R.id.fragment_promo_recyclerView)
     RecyclerView _recyclerView;
-    Adapter _adapter;
+    Adapter _adapter = new Adapter();
 
     @Override
     protected void init() {
-        _adapter = new Adapter();
         _recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         _recyclerView.setAdapter(_adapter);
     }
@@ -51,7 +52,7 @@ public class PromoFragment extends FragmentBase {
             ButterKnife.bind(this, itemView);
         }
 
-        public void update(SnappedCard card){
+        public void update(final SnappedCard card){
             Picasso
                     .with(getContext())
                     .load(getApp().getUri(card.getCard().getImage()))
@@ -61,6 +62,16 @@ public class PromoFragment extends FragmentBase {
                     .load(getApp().getUri(card.getCard().getPromo().getImage()))
                     .into(_image);
             _title.setText(card.getCard().getTitle());
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), PromoActivity.class);
+                    intent.putExtra(PromoActivity.CARD_EXTRA, card.getCard());
+
+                    getActivity().startActivity(intent);
+                }
+            });
         }
     }
 
