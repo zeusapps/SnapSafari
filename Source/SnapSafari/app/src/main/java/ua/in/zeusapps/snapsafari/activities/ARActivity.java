@@ -1,6 +1,7 @@
 package ua.in.zeusapps.snapsafari.activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.hardware.Sensor;
@@ -194,6 +195,11 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
         } catch (Exception ex)  {
             Log.e(TAG, ex.getMessage());
         }
+    }
+
+    public void doCatch(View view) {
+        Intent intent = new Intent(this, ElephantActivity.class);
+        startActivity(intent);
     }
 
     @Override

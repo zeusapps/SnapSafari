@@ -1,6 +1,8 @@
 package ua.in.zeusapps.snapsafari.controls;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -9,7 +11,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.opengl.Matrix;
 import android.support.v7.widget.AppCompatImageView;
-import android.R;
+import ua.in.zeusapps.snapsafari.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +38,8 @@ public class AROverlayView extends AppCompatImageView {
             add(new ARPoint("Point1", 50.480363, 30.668455, 0));
         }};
 
-        this.setBackgroundResource(R.drawable.elephant);
-        AnimationDrawable elephantAnimation = elephantImageView.getBackground();
+//        this.setBackgroundResource(R.drawable.elephant);
+//        AnimationDrawable elephantAnimation = elephantImageView.getBackground();
     }
 
     public void updateRotatedProjectionMatrix(float[] rotatedProjectionMatrix) {
@@ -79,8 +81,13 @@ public class AROverlayView extends AppCompatImageView {
                 float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
                 float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
 
-                canvas.drawCircle(x, y, radius, paint);
-                canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
+//                canvas.drawCircle(x, y, radius, paint);
+//                canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
+
+                Paint p = new Paint();
+                Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.elephant_00001);
+                canvas.drawBitmap(b, 0, 0, p);
+
             }
         }
     }
