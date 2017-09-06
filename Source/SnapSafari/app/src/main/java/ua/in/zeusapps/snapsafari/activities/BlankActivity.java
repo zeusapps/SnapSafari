@@ -41,7 +41,8 @@ public class BlankActivity extends ActivityBase {
         }
 
         if (id == R.id.bottom_menu_center){
-            Intent intent = new Intent(this, ElephantActivity.class);
+//            Intent intent = new Intent(this, ElephantActivity.class);
+            Intent intent = new Intent(this, ARActivity.class);
             startActivity(intent);
         }
     }
