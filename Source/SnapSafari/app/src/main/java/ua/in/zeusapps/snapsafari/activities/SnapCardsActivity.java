@@ -1,6 +1,7 @@
 package ua.in.zeusapps.snapsafari.activities;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,9 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
@@ -34,6 +37,12 @@ public class SnapCardsActivity extends ActivityBase {
     private List<SnappedCard> _snappedCards;
     private ElephantFragment _elephantFragment = new ElephantFragment();
     private PromoFragment _promoFragment = new PromoFragment();
+    private TabViewHolder _tabHolder1;
+    private TabViewHolder _tabHolder2;
+    private TabViewHolder _tabHolder3;
+
+
+    private List<FilterHolder> _filters = new ArrayList<>();
 
 
     @BindView(R.id.activity_snap_cards_tab_layout)
@@ -59,6 +68,11 @@ public class SnapCardsActivity extends ActivityBase {
         _viewPager.setAdapter(new Adapter(getSupportFragmentManager()));
         _tabLayout.setupWithViewPager(_viewPager);
 
+        _filters.add(new FilterHolder(_earthButton, "E", R.drawable.earth_white, R.drawable.earth_green));
+        _filters.add(new FilterHolder(_airButton, "A", R.drawable.air_white, R.drawable.air_green));
+        _filters.add(new FilterHolder(_fireButton, "F", R.drawable.fire_white, R.drawable.fire_green));
+        _filters.add(new FilterHolder(_waterButton, "W", R.drawable.water_white, R.drawable.water_green));
+
         getApp().getService().getMyCards(getToken())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -68,23 +82,51 @@ public class SnapCardsActivity extends ActivityBase {
                         _snappedCards = snappedCards;
                         _elephantFragment.addCards(snappedCards);
                         _promoFragment.addCards(snappedCards);
+
+                        View tab = getNewTab();
+                        _tabHolder1 = new TabViewHolder(tab);
+                        _tabHolder1.setTitle(getString(R.string.activity_snap_cards_snapped_animals));
+                        _tabLayout.getTabAt(0).setCustomView(tab);
+                        tab = getNewTab();
+                        _tabHolder3 = new TabViewHolder(tab);
+                        _tabHolder3.setTitle(getString(R.string.activity_snap_cards_boost_cards));
+                        _tabLayout.getTabAt(1).setCustomView(tab);
+
                         update();
                     }
                 });
     }
 
     private void update(){
-        for (int i = 0; i < _tabLayout.getTabCount(); i++){
-            View tabView = getLayoutInflater().inflate(R.layout.tab, null, false);
+        int promoCardsCount = 0;
+        List<SnappedCard> promoCards = new ArrayList<>();
+        List<SnappedCard> cards = new ArrayList<>();
 
-            TextView title = (TextView) tabView.findViewById(R.id.tab_title);
-            TextView description = (TextView) tabView.findViewById(R.id.tab_description);
 
-            title.setText(getTitle(i));
-            description.setText(getDescription(i));
+        for (SnappedCard card: _snappedCards){
+            if (card.getCard().getPromo() != null){
+                promoCardsCount++;
+                if (card.getCard().getElement().equals(_selectedFilter)){
+                    promoCards.add(card);
+                }
+            }
 
-            _tabLayout.getTabAt(i).setCustomView(tabView);
+            if (card.getCard().getElement().equals(_selectedFilter)){
+                cards.add(card);
+            }
         }
+
+        _elephantFragment.addCards(cards);
+        _promoFragment.addCards(promoCards);
+
+        _tabHolder1.setDescription(
+                getString(R.string.activity_snap_cards_description,
+                        cards.size(),
+                        _snappedCards.size()));
+        _tabHolder3.setDescription(
+                getString(R.string.activity_snap_cards_description,
+                        promoCards.size(),
+                        promoCardsCount));
     }
 
     @OnClick({
@@ -96,53 +138,27 @@ public class SnapCardsActivity extends ActivityBase {
     public void onFilter(Button btn){
         int id = btn.getId();
 
-        _earthButton.setBackgroundColor(Color.TRANSPARENT);
-        _airButton.setBackgroundColor(Color.TRANSPARENT);
-        _fireButton.setBackgroundColor(Color.TRANSPARENT);
-        _waterButton.setBackgroundColor(Color.TRANSPARENT);
-
-
-        int color = ContextCompat.getColor(this, R.color.colorFilterSelected);
-
-        switch (id){
-            case R.id.activity_snap_cards_filter_earth:
-                _selectedFilter = "E";
-                _earthButton.setBackgroundColor(color);
-                break;
-            case R.id.activity_snap_cards_filter_air:
-                _selectedFilter = "A";
-                _earthButton.setBackgroundColor(color);
-                break;
-            case R.id.activity_snap_cards_filter_fire:
-                _selectedFilter = "F";
-                _earthButton.setBackgroundColor(color);
-                break;
-            case R.id.activity_snap_cards_filter_water:
-                _selectedFilter = "W";
-                _earthButton.setBackgroundColor(color);
-                break;
-        }
-    }
-
-    private String getDescription(int i) {
-
-
-
-        if (i == 0){
-            return getString(R.string.activity_snap_cards_snapped_animals_count);
+        for (FilterHolder holder: _filters) {
+            if (holder.getId() == id){
+                holder.getButton()
+                        .setBackgroundColor(
+                                ContextCompat.getColor(this, R.color.colorFilterSelected));
+                Drawable bottom = ContextCompat.getDrawable(this, holder.getSelectedImage());
+                holder.getButton().setCompoundDrawablesWithIntrinsicBounds(null, null, null, bottom);
+                _selectedFilter = holder.getElement();
+            } else {
+                holder.getButton().setBackgroundColor(Color.TRANSPARENT);
+                Drawable bottom = ContextCompat.getDrawable(this, holder.getImage());
+                holder.getButton().setCompoundDrawablesWithIntrinsicBounds(null, null, null, bottom);
+            }
         }
 
-        return getString(R.string.activity_snap_cards_boost_cards_count);
+        update();
     }
 
-    private String getTitle(int i) {
-        if (i == 0){
-            return getString(R.string.activity_snap_cards_snapped_animals);
-        }
-
-        return getString(R.string.activity_snap_cards_boost_cards);
+    private View getNewTab(){
+        return getLayoutInflater().inflate(R.layout.tab, null, false);
     }
-
 
     class Adapter extends FragmentPagerAdapter{
 
@@ -162,6 +178,62 @@ public class SnapCardsActivity extends ActivityBase {
         @Override
         public int getCount() {
             return 2;
+        }
+    }
+
+    private class FilterHolder {
+        private Button _button;
+        private int _id;
+        private String _element;
+        private int _selectedImage;
+        private int _image;
+
+        public FilterHolder(Button button, String element, int image, int selectedImage) {
+            _button = button;
+            _id = button.getId();
+            _element = element;
+            _image = image;
+            _selectedImage = selectedImage;
+        }
+
+        public Button getButton() {
+            return _button;
+        }
+
+        public int getId() {
+            return _id;
+        }
+
+        public String getElement() {
+            return _element;
+        }
+
+        public int getSelectedImage() {
+            return _selectedImage;
+        }
+
+        public int getImage() {
+            return _image;
+        }
+    }
+
+    public class TabViewHolder{
+
+        @BindView(R.id.tab_title)
+        TextView _title;
+        @BindView(R.id.tab_description)
+        TextView _description;
+
+        public TabViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
+
+        public void setTitle(String title){
+            _title.setText(title);
+        }
+
+        public void setDescription(String description){
+            _description.setText(description);
         }
     }
 }

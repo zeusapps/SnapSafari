@@ -79,6 +79,7 @@ public class ElephantFragment extends FragmentBase {
         }
 
         public void addCards(List<SnappedCard> cards){
+            _snappedCards.clear();
             _snappedCards.addAll(cards);
             notifyDataSetChanged();
         }

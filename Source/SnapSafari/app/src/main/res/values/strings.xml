@@ -14,8 +14,7 @@
     <string name="activity_snap_cards_title">My Snap Cards</string>
     <string name="activity_snap_cards_snapped_animals">Snapped Animals</string>
     <string name="activity_snap_cards_boost_cards">Boost Cards</string>
-    <string name="activity_snap_cards_snapped_animals_count">10/30</string>
-    <string name="activity_snap_cards_boost_cards_count">04/20</string>
+    <string name="activity_snap_cards_description">%1$d/%2$d</string>
     <string name="activity_main_menu_play_button">Play</string>
     <string name="activity_main_menu_snap_card_button">Snap Cards</string>
     <string name="activity_main_menu_settings_button">Settings</string>

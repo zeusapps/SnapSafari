@@ -87,6 +87,7 @@ public class PromoFragment extends FragmentBase {
         }
 
         public void addCards(List<SnappedCard> cards){
+            _snappedCards.clear();
             for (SnappedCard card:cards) {
                 if (card.getCard().getPromo() != null){
                     _snappedCards.add(card);
