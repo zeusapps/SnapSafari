@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,6 +44,8 @@ public class PromoActivity extends ActivityBase {
     TextView description;
     @BindView(R.id.activity_promo_valid_for)
     TextView validFor;
+    @BindView(R.id.activity_promo_term)
+    TextView term;
     @BindView(R.id.activity_promo_menu)
     Menu menu;
 
@@ -63,6 +67,7 @@ public class PromoActivity extends ActivityBase {
         description.setText(card.getPromo().getTitle());
         String message = "Valid for " + getDaysBetween(card) + " days";
         validFor.setText(message);
+        term.setText(card.getPromo().getTerm());
 
         Picasso.with(this).load(getApp().getUri(card.getImage())).into(elephantImage);
         Picasso.with(this).load(getApp().getUri(card.getPromo().getImage())).into(promoImage);

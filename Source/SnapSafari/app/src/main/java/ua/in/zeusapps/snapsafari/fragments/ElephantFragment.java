@@ -22,7 +22,7 @@ import ua.in.zeusapps.snapsafari.models.SnappedCard;
 
 @Layout(R.layout.fragment_elephant)
 public class ElephantFragment extends FragmentBase {
-    private Adapter _adapter;
+    private Adapter _adapter = new Adapter();
 
     @BindView(R.id.fragment_elephant_recyclerView)
     RecyclerView _recyclerView;
@@ -33,7 +33,6 @@ public class ElephantFragment extends FragmentBase {
 
     @Override
     protected void init(){
-        _adapter = new Adapter();
         _recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         _recyclerView.setAdapter(_adapter);
     }
@@ -79,6 +78,7 @@ public class ElephantFragment extends FragmentBase {
         }
 
         public void addCards(List<SnappedCard> cards){
+            _snappedCards.clear();
             _snappedCards.addAll(cards);
             notifyDataSetChanged();
         }
