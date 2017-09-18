@@ -1,18 +1,17 @@
 package ua.in.zeusapps.snapsafari.controls;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Build;
-import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -21,6 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ua.in.zeusapps.snapsafari.R;
+import ua.in.zeusapps.snapsafari.activities.MenuActivity;
+import ua.in.zeusapps.snapsafari.activities.SnapCardsActivity;
 
 public class Menu extends FrameLayout {
 
@@ -62,6 +63,31 @@ public class Menu extends FrameLayout {
 
         ButterKnife.bind(this, this);
 
+        _backPressedListener = new IMenuBackPressedListener() {
+            @Override
+            public void onBackPressed() {
+                try {
+                    // TODO open cards collection on back button press
+                    Intent intent = new Intent(getContext(), SnapCardsActivity.class);
+                    getContext().startActivity(intent);
+
+                    // Finish activity
+                    // Activity activity = (Activity) getContext();
+                    // activity.finish();
+                } catch (Throwable throwable) {
+                    //
+                }
+            }
+        };
+        // TODO check set on menu button click
+        _menuButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MenuActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+
         if (attrs != null) {
             TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.Menu);
             int value =array.getInt(R.styleable.Menu_style, 0);
@@ -81,20 +107,6 @@ public class Menu extends FrameLayout {
         _menuButton.setImageBitmap(icon);
         Bitmap back = BitmapFactory.decodeResource(getResources(), R.drawable.menu_back_dark);
         _backButton.setImageBitmap(back);
-
-        _backPressedListener = new IMenuBackPressedListener() {
-            @Override
-            public void onBackPressed() {
-                try {
-                    Activity activity = (Activity) getContext();
-                    if (activity != null) {
-                        activity.finish();
-                    }
-                } catch (Throwable throwable) {
-                    //
-                }
-            }
-        };
     }
 
     @OnClick(R.id.menu_back)

@@ -90,7 +90,6 @@ public class ElephantActivity extends ActivityBase {
     }
 
     @OnClick({
-            R.id.activity_elephant_menu,
             R.id.activity_elephant_bottom_menu
     })
     public void onClick(View view){
