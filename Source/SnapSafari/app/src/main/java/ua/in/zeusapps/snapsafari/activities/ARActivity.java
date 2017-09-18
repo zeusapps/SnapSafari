@@ -3,6 +3,7 @@ package ua.in.zeusapps.snapsafari.activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.AnimationDrawable;
 import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -21,6 +22,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,8 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     private ARCamera arCamera;
     private TextView tvCurrentLocation;
     private TextView arPointLocationTextView;
+    ImageView elephantView;
+    private AnimationDrawable animatedElephant;
 
     private SensorManager sensorManager;
     private final static int REQUEST_CAMERA_PERMISSIONS_CODE = 11;
@@ -71,6 +75,11 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
         Location loc1 = arOverlayView.arPoints.get(0).getLocation();
         arPointLocationTextView.setText(String.format("lat: %s \nlon: %s \naltitude: %s \n",
                 loc1.getLatitude(), loc1.getLongitude(), loc1.getAltitude()));
+
+        elephantView = (ImageView) findViewById(R.id.animated_elephant);
+        elephantView.setBackgroundResource(R.drawable.animated_elephant);
+        animatedElephant = (AnimationDrawable) elephantView.getBackground();
+        elephantView.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -80,12 +89,20 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
         requestCameraPermission();
         registerSensors();
         initAROverlayView();
+        animatedElephant.start();
     }
 
     @Override
     public void onPause() {
         releaseCamera();
         super.onPause();
+        animatedElephant.stop();
+    }
+
+    public void changeElephantCoords(float x, float y) {
+        elephantView.setVisibility(View.VISIBLE);
+        elephantView.setY(y);
+        elephantView.setX(x);
     }
 
     public void requestCameraPermission() {

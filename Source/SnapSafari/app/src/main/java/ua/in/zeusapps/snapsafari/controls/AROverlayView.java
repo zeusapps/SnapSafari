@@ -1,6 +1,7 @@
 package ua.in.zeusapps.snapsafari.controls;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -16,6 +17,7 @@ import ua.in.zeusapps.snapsafari.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import ua.in.zeusapps.snapsafari.activities.ARActivity;
 import ua.in.zeusapps.snapsafari.common.LocationHelper;
 import ua.in.zeusapps.snapsafari.models.ARPoint;
 
@@ -84,10 +86,18 @@ public class AROverlayView extends AppCompatImageView {
 //                canvas.drawCircle(x, y, radius, paint);
 //                canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
 
-                Paint p = new Paint();
-                Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.elephant_00001);
-                canvas.drawBitmap(b, 0, 0, p);
+//                Paint p = new Paint();
+//                Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.elephant_00001);
+//                canvas.drawBitmap(b, 0, 0, p);
 
+                Context context = getContext();
+                while (context instanceof ContextWrapper) {
+                    if (context instanceof ARActivity) {
+                        ((ARActivity) context).changeElephantCoords(x, y);
+                        break;
+                    }
+                    context = ((ContextWrapper)context).getBaseContext();
+                }
             }
         }
     }

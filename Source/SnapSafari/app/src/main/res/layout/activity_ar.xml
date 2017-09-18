@@ -48,5 +48,12 @@
         android:text="Catch"
         android:onClick="doCatch"/>
 
+    <ImageView
+        android:id="@+id/animated_elephant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/animated_elephant"
+        />
+
 </FrameLayout>
 
