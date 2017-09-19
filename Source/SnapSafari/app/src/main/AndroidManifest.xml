@@ -13,13 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+        <activity android:name=".activities.LoginActivity"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".activities.BlankActivity"/>
         <activity android:name=".activities.ElephantActivity"/>
@@ -29,6 +23,13 @@
         <activity android:name=".activities.MenuActivity"/>
         <activity android:name=".activities.PromoActivity"/>
         <activity android:name=".activities.PromoDetailsActivity">
+        </activity>
+        <activity android:name=".activities.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

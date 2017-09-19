@@ -24,4 +24,6 @@
     <string name="activity_promo_details_promo_code_suffix">PROMO CODE: %s</string>
     <string name="fragment_boost_cards_text">Blank for now</string>
     <string name="activity_snap_cards_promo_cards">Promo Cards</string>
+    <string name="activity_welcome_register">Register</string>
+    <string name="activity_welcome_login">Login</string>
 </resources>
