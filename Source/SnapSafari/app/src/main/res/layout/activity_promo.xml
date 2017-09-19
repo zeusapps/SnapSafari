@@ -57,106 +57,6 @@
         app:srcCompat="@drawable/elephant"
         app:layout_constraintVertical_bias="0.8"/>
 
-    <LinearLayout
-        android:layout_width="381dp"
-        android:layout_height="0dp"
-        android:padding="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline_center"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            tools:text="Nakshi Nouba Elephant"
-            android:id="@+id/activity_promo_title"
-            android:textSize="18sp"
-            android:textColor="@color/colorLabel"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:src="@drawable/promo1"
-            android:layout_margin="8dp"
-
-            android:id="@+id/activity_promo_promo_image"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Buy 2 get 1 free"
-            android:textColor="@color/colorPromoTerm"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:id="@+id/activity_promo_term"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Redeemable Card"
-            android:id="@+id/activity_promo_description"
-            android:textColor="@color/colorGray"/>
-
-
-
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Valid for 30 days"
-            android:textAlignment="center"
-            android:textColor="@color/colorLabel"
-            android:textAllCaps="true"
-            android:id="@+id/activity_promo_valid_for"
-            android:textSize="12sp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/button_snap"
-                android:text="@string/activity_snap_button"
-                android:textColor="@android:color/white"
-                android:textAllCaps="false"
-                android:layout_margin="2dp"
-
-                android:id="@+id/activity_promo_snap_button"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/button_menu"
-                android:layout_margin="2dp"
-                android:text="Redeem Now!"
-                android:textColor="@android:color/white"
-                android:textAllCaps="false"
-
-                android:id="@+id/activity_promo_redeem_button"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Back to the game"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/colorAccent"
-            android:textSize="16sp"
-            android:id="@+id/activity_promo_back"/>
-
-    </LinearLayout>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -166,6 +66,108 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="24dp"
         android:textSize="12sp"/>
+
+    <LinearLayout
+        android:layout_width="381dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline_center"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/activity_promo_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/colorLabel"
+            android:textSize="18sp"
+            tools:text="Nakshi Nouba Elephant"/>
+
+        <ImageView
+            android:id="@+id/activity_promo_promo_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+
+            android:src="@drawable/promo1"/>
+
+        <TextView
+            android:id="@+id/activity_promo_term"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/colorPromoTerm"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Buy 2 get 1 free"/>
+
+        <TextView
+            android:id="@+id/activity_promo_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGray"
+            tools:text="Redeemable Card"/>
+
+
+        <TextView
+            android:id="@+id/activity_promo_valid_for"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorLabel"
+            android:textSize="12sp"
+            tools:text="Valid for 30 days"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/activity_promo_snap_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_snap"
+                android:text="@string/activity_snap_button"
+                android:textAllCaps="false"
+
+                android:textColor="@android:color/white"/>
+
+            <Button
+                android:id="@+id/activity_promo_redeem_button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_menu"
+                android:text="Redeem Now!"
+                android:textAllCaps="false"
+
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/activity_promo_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Back to the game"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
+            android:drawableLeft="@drawable/back_arrow"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

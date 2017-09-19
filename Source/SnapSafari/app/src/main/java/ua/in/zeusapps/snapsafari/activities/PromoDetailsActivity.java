@@ -2,16 +2,24 @@ package ua.in.zeusapps.snapsafari.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
-import butterknife.OnClick;
 import ua.in.zeusapps.snapsafari.R;
 import ua.in.zeusapps.snapsafari.common.Layout;
+import ua.in.zeusapps.snapsafari.fragments.PromoDescriptionFragment;
+import ua.in.zeusapps.snapsafari.fragments.PromoDetailsFragment;
 import ua.in.zeusapps.snapsafari.models.Card;
 
 @Layout(R.layout.activity_promo_details)
@@ -19,17 +27,19 @@ public class PromoDetailsActivity extends ActivityBase {
     public static final String CARD_EXTRA = "card";
 
     private Card _card;
+    private PromoDetailsFragment _promoDetailsFragment;
+    private PromoDescriptionFragment _promoDescriptionFragment;
 
     @BindView(R.id.activity_promo_details_element)
     ImageView _element;
     @BindView(R.id.activity_promo_details_promo_image)
     ImageView _promoImage;
-    @BindView(R.id.activity_promo_details_qr_code)
-    ImageView _qrCode;
     @BindView(R.id.activity_promo_details_title)
     TextView _title;
-    @BindView(R.id.activity_promo_details_promo_code)
-    TextView _promoCode;
+    @BindView(R.id.activity_promo_details_view_pager)
+    ViewPager _viewPager;
+    @BindView(R.id.activity_promo_tab_layout)
+    TabLayout _tabLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,31 +53,19 @@ public class PromoDetailsActivity extends ActivityBase {
         String promoCode = getString(
                 R.string.activity_promo_details_promo_code_suffix,
                 _card.getPromo().getPromoCode());
-        _promoCode.setText(promoCode);
-    }
 
-    @OnClick(R.id.activity_promo_details_redeem_button)
-    public void onRedeem(){
-//        SnapRequest request = new SnapRequest(_card.getId());
-//        getApp().getService().snapCard(getToken(), request)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .subscribe(new Consumer<SnappedCard>() {
-//                    @Override
-//                    public void accept(@NonNull SnappedCard snappedCard) throws Exception {
-//                        Toast.makeText(PromoDetailsActivity.this, "Card snapped!", Toast.LENGTH_SHORT).show();
-//
-//                        Intent intent = new Intent(PromoDetailsActivity.this, SnapCardsActivity.class);
-//                        startActivity(intent);
-//                        finish();
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(@NonNull Throwable throwable) throws Exception {
-//                        Toast.makeText(PromoDetailsActivity.this, "Failed to snap card. Try later", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-        Toast.makeText(this, "Redeem now!", Toast.LENGTH_SHORT).show();
+
+        _promoDetailsFragment = PromoDetailsFragment
+                .newInstance(
+                        _card.getPromo().getTerm(),
+                        promoCode,
+                        R.drawable.qr_code);
+        _promoDescriptionFragment = PromoDescriptionFragment
+                .newInstance(_card.getPromo().getDescription());
+
+        Adapter adapter = new Adapter(getSupportFragmentManager());
+        _viewPager.setAdapter(adapter);
+        _tabLayout.setupWithViewPager(_viewPager);
     }
 
     private int getElementResource(Card card){
@@ -83,5 +81,27 @@ public class PromoDetailsActivity extends ActivityBase {
         }
 
         return 0;
+    }
+
+    public class Adapter extends FragmentPagerAdapter {
+
+        private List<Fragment> _fragments = new ArrayList<>();
+
+        public Adapter(FragmentManager fm) {
+            super(fm);
+
+            _fragments.add(_promoDescriptionFragment);
+            _fragments.add(_promoDetailsFragment);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return _fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return _fragments.size();
+        }
     }
 }
