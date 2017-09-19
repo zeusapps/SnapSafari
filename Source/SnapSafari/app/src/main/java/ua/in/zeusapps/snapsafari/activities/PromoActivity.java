@@ -108,6 +108,11 @@ public class PromoActivity extends ActivityBase {
         startActivity(intent);
     }
 
+    @OnClick(R.id.activity_promo_back)
+    public void onBack(){
+        finish();
+    }
+
     private int getIconRes(Card card){
         switch (card.getElement()){
             case "A":

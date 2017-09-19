@@ -1,6 +1,5 @@
 package ua.in.zeusapps.snapsafari.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
@@ -10,17 +9,10 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import ua.in.zeusapps.snapsafari.R;
 import ua.in.zeusapps.snapsafari.common.Layout;
 import ua.in.zeusapps.snapsafari.models.Card;
-import ua.in.zeusapps.snapsafari.models.SnapRequest;
-import ua.in.zeusapps.snapsafari.models.SnappedCard;
 
 @Layout(R.layout.activity_promo_details)
 public class PromoDetailsActivity extends ActivityBase {
