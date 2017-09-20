@@ -18,19 +18,6 @@ public class BlankActivity extends ActivityBase {
     @BindView(R.id.activity_menu_menu)
     Menu _menu;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        _menu.setOnBackPressedListener(new Menu.IMenuBackPressedListener() {
-            @Override
-            public void onBackPressed() {
-                Intent intent = new Intent(BlankActivity.this, SnapCardsActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
     @OnClick({ R.id.activity_menu_bottom_menu, R.id.activity_menu_menu})
     public void onClick(View view){
         int id = view.getId();

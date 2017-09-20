@@ -49,6 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:id="@+id/activity_elephant_bottom_menu"/>
+        android:id="@+id/activity_elephant_bottom_menu"
+        app:type="normal"/>
 
 </LinearLayout>

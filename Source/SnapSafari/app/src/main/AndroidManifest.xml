@@ -24,7 +24,8 @@
         <activity android:name=".activities.PromoActivity"/>
         <activity android:name=".activities.PromoDetailsActivity">
         </activity>
-        <activity android:name=".activities.WelcomeActivity">
+        <activity android:name=".activities.WelcomeActivity"/>
+        <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
