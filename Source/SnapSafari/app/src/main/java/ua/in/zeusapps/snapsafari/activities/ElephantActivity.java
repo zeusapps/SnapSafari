@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -119,10 +120,10 @@ public class ElephantActivity extends ActivityBase {
     }
 
     private void showLoadingError(){
-
+        Toast.makeText(this, "Failed to load content.", Toast.LENGTH_SHORT).show();
     }
 
     private void showNoContent(){
-
+        Toast.makeText(this, "Any event wasn't found.", Toast.LENGTH_SHORT).show();
     }
 }

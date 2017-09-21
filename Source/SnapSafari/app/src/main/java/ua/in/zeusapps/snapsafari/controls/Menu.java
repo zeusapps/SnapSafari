@@ -1,5 +1,6 @@
 package ua.in.zeusapps.snapsafari.controls;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -68,12 +69,12 @@ public class Menu extends FrameLayout {
             public void onBackPressed() {
                 try {
                     // TODO open cards collection on back button press
-                    Intent intent = new Intent(getContext(), SnapCardsActivity.class);
-                    getContext().startActivity(intent);
+//                    Intent intent = new Intent(getContext(), SnapCardsActivity.class);
+//                    getContext().startActivity(intent);
 
-                    // Finish activity
-                    // Activity activity = (Activity) getContext();
-                    // activity.finish();
+                     //Finish activity
+                     Activity activity = (Activity) getContext();
+                     activity.finish();
                 } catch (Throwable throwable) {
                     //
                 }

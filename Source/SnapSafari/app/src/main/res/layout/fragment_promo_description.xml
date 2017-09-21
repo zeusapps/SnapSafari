@@ -1,0 +1,16 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="ua.in.zeusapps.snapsafari.fragments.PromoDescriptionFragment">
+
+    <TextView
+        android:id="@+id/fragment_promo_description_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorAccent"
+        android:textAlignment="center"
+        android:layout_gravity="center_vertical"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet tempor dui, bibendum tempus augue consequat quis. Etiam sit amet urna ut mi consectetur ullamcorper. Integer et turpis non arcu sagittis hendrerit non ut massa. Mauris ultrices nibh at sapien faucibus elementum. Sed eu velit risus. Integer lobortis, justo id mollis tempus, nisl risus pretium arcu, sed elementum nulla nulla vitae ligula."/>
+
+</FrameLayout>

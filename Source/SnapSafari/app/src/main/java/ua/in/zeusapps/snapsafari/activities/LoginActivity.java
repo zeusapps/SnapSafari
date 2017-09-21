@@ -26,14 +26,12 @@ public class LoginActivity extends ActivityBase {
     Button _facebookButton;
     @BindView(R.id.activity_login_gmail_login)
     Button _gmailButton;
-    @BindView(R.id.activity_login_try_it_login)
-    Button _tryItButton;
 
     @OnClick({
             R.id.activity_login_twitter_login,
             R.id.activity_login_facebook_login,
-            R.id.activity_login_gmail_login,
-            R.id.activity_login_try_it_login})
+            R.id.activity_login_gmail_login
+    })
     public void onLogin(){
         Login login = new Login(USERNAME, PASSWORD);
 

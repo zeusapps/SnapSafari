@@ -70,20 +70,5 @@
             android:text="@string/activity_login_gmail_login"
 
             android:id="@+id/activity_login_gmail_login"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:layout_gravity="center_vertical|start"
-            android:layout_marginTop="80dp"
-            android:layout_margin="4dp"
-            android:paddingLeft="32dp"
-            android:textSize="18sp"
-            android:background="@drawable/button_try_it"
-            android:text="@string/activity_login_try_it"
-            android:drawableRight="@drawable/try_it"
-            android:drawableEnd="@drawable/try_it"
-            android:textColor="@android:color/white"
-            android:id="@+id/activity_login_try_it_login"/>
     </LinearLayout>
 </FrameLayout>

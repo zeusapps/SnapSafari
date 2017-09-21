@@ -7,4 +7,11 @@
         </attr>
         <attr name="title" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="BottomMenu">
+        <attr name="type" format="enum">
+            <enum name="normal" value="0"/>
+            <enum name="photo" value="1"/>
+        </attr>
+    </declare-styleable>
 </resources>

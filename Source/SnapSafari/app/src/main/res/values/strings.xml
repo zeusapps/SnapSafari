@@ -16,7 +16,7 @@
     <string name="activity_snap_cards_boost_cards">Boost Cards</string>
     <string name="activity_snap_cards_description">%1$d/%2$d</string>
     <string name="activity_main_menu_play_button">Play</string>
-    <string name="activity_main_menu_snap_card_button">Snap Cards</string>
+    <string name="activity_main_menu_snap_card_button">My Cards</string>
     <string name="activity_main_menu_settings_button">Settings</string>
     <string name="activity_snap_redeem_now">Redeem now!</string>
     <string name="activity_promo_details_promo_card">Promo card</string>
@@ -24,4 +24,11 @@
     <string name="activity_promo_details_promo_code_suffix">PROMO CODE: %s</string>
     <string name="fragment_boost_cards_text">Blank for now</string>
     <string name="activity_snap_cards_promo_cards">Promo Cards</string>
+    <string name="activity_welcome_register">Register</string>
+    <string name="activity_welcome_login">Login</string>
+    <string name="activity_main_menu_battle">Battle</string>
+    <string name="activity_main_menu_marketplace">Marketplace</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
