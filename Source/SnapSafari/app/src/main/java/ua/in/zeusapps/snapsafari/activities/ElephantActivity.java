@@ -67,9 +67,7 @@ public class ElephantActivity extends ActivityBase {
                 List<Card> cards = new ArrayList<>();
 
                 for (Event event: events){
-                    for (Card card: event.getCards()){
-                        cards.add(card);
-                    }
+                    cards.add(event.getCard());
                 }
 
                 if (cards.size() > 0) {

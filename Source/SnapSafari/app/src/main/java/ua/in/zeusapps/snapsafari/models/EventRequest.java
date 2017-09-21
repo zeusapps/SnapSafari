@@ -20,7 +20,7 @@ public class EventRequest {
         _radius = radius;
     }
 
-    public float getLatitude() {
+    public double getLatitude() {
         return _latitude;
     }
 
@@ -28,7 +28,7 @@ public class EventRequest {
         _latitude = latitude;
     }
 
-    public float getLongitude() {
+    public double getLongitude() {
         return _longitude;
     }
 

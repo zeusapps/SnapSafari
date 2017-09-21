@@ -17,13 +17,6 @@
 
     </FrameLayout>
 
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="44dp"
-        android:layout_gravity="top|right"
-        android:text="Set Point"
-        android:onClick="doSetPoint"/>
-
     <TextView
         android:id="@+id/ar_point_location"
         android:layout_width="wrap_content"

@@ -1,24 +1,43 @@
 package ua.in.zeusapps.snapsafari.models;
 
+import android.content.Intent;
 import android.location.Location;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class ARPoint {
-    private Location location;
-    private String name;
+    @SerializedName("altitude") @Expose private double altitude;
+    @SerializedName("floor") @Expose private int floor;
+    @SerializedName("description") @Expose private String description;
+    @SerializedName("coordinate") @Expose private Coordinate coordinate;
 
-    public ARPoint(String name, double lat, double lon, double altitude) {
-        this.name = name;
-        location = new Location("ARPoint");
-        location.setLatitude(lat);
-        location.setLongitude(lon);
-        location.setAltitude(altitude);
+    public double getAltitude() {
+        return altitude;
+    }
+    public void setAltitude(double alt) {
+        this.altitude = altitude;
     }
 
-    public Location getLocation() {
-        return location;
+    public int getFloor() {
+        return floor;
+    }
+    public void setFloor(int floor) {
+        this.floor = floor;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
+    public void setFloor(String description) {
+        this.description = description;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
+    }
+
 }

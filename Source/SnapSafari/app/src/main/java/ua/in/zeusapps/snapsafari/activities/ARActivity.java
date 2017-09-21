@@ -1,6 +1,7 @@
 package ua.in.zeusapps.snapsafari.activities;
 
 import android.Manifest;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
@@ -12,11 +13,12 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.opengl.Matrix;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
@@ -26,15 +28,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
+import ua.in.zeusapps.snapsafari.MainActivity;
 import ua.in.zeusapps.snapsafari.R;
 import ua.in.zeusapps.snapsafari.controls.ARCamera;
-import ua.in.zeusapps.snapsafari.models.ARPoint;
 import ua.in.zeusapps.snapsafari.controls.AROverlayView;
+import ua.in.zeusapps.snapsafari.models.CardAnimation;
+import ua.in.zeusapps.snapsafari.models.Card;
+import ua.in.zeusapps.snapsafari.models.Event;
+import ua.in.zeusapps.snapsafari.models.EventRequest;
 
 
-public class ARActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
+public class ARActivity extends ActivityBase implements SensorEventListener, LocationListener {
 
     final static String TAG = "ARActivity";
     private SurfaceView surfaceView;
@@ -60,6 +71,10 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     boolean isNetworkEnabled;
     boolean locationServiceAvailable;
 
+    private List<Event> _events;
+    private Card _card;
+    DownloadManager downloadManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +87,6 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
         tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
         arPointLocationTextView = (TextView) findViewById(R.id.ar_point_location);
         arOverlayView = new AROverlayView(this);
-        Location loc1 = arOverlayView.arPoints.get(0).getLocation();
-        arPointLocationTextView.setText(String.format("lat: %s \nlon: %s \naltitude: %s \n",
-                loc1.getLatitude(), loc1.getLongitude(), loc1.getAltitude()));
 
         elephantView = (ImageView) findViewById(R.id.animated_elephant);
         elephantView.setBackgroundResource(R.drawable.animated_elephant);
@@ -197,23 +209,6 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
         }
     }
 
-    public void doSetPoint(View view) {
-
-        if ( Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
-            return  ;
-        }
-        try {
-            if (this.location != null) {
-                arOverlayView.arPoints.set(0, new ARPoint("Point", this.location.getLatitude(), this.location.getLongitude(), this.location.getAltitude()));
-                arPointLocationTextView.setText(String.format("lat: %s \nlon: %s \naltitude: %s \n",
-                        location.getLatitude(), location.getLongitude(), location.getAltitude()));
-            }
-        } catch (Exception ex)  {
-            Log.e(TAG, ex.getMessage());
-        }
-    }
-
     public void doCatch(View view) {
         Intent intent = new Intent(this, ElephantActivity.class);
         startActivity(intent);
@@ -285,6 +280,9 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
 
     @Override
     public void onLocationChanged(Location location) {
+        if (location != null && this.location == null) {
+            updateCards(location);
+        }
         this.location = location;
         updateLatestLocation();
     }
@@ -303,4 +301,64 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     public void onProviderDisabled(String s) {
 
     }
+
+    private void updateCards(Location location) {
+
+//        EventRequest request = new EventRequest(location.getLongitude(), location.getLatitude(), 1000);
+        EventRequest request = new EventRequest((float)(50.51576066295344), (float)(30.60552879457229), 1000);
+
+        getApp().getService()
+                .getEvents(getToken(), request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Event>>() {
+                    @Override
+                    public void accept(@NonNull List<Event> events) throws Exception {
+                        _events = events;
+                        arOverlayView.events = events;
+//                        ArrayList<CardAnimation> cardAnimations = new ArrayList<CardAnimation>();
+//                        for (final Event event: events) {
+//                            String url = "cards/get_animal_animation/" + event.getCard().getKindID() + "&" + event.getCard().getElement()+"/";
+//
+//                            getApp().getService().getAnimation(getToken(), url)
+//                                    .observeOn(AndroidSchedulers.mainThread())
+//                                    .subscribeOn(Schedulers.io())
+//                                    .subscribe(new Consumer<CardAnimation>() {
+//                                        @Override
+//                                        public void accept(@NonNull CardAnimation cardAnimation) throws Exception {
+//                                            event.setAnimationURL(cardAnimation.getAnimationURL());
+//                                            Uri imageUri = Uri.parse(getApp().BASE_URL + cardAnimation.getAnimationURL());
+//                                            downloadData(imageUri);
+//                                        }
+//                                    }, new Consumer<Throwable>() {
+//                                        @Override
+//                                        public void accept(@NonNull Throwable throwable) throws Exception {
+//                                            Log.d(ElephantActivity.class.getSimpleName(), throwable.getMessage());
+//                                        }
+//                                    });
+//                        }
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        Log.d(ElephantActivity.class.getSimpleName(), throwable.getMessage());
+                    }
+                });
+
+    }
+
+//    private long downloadData (Uri uri) {
+//
+//        long downloadReference;
+//
+//        downloadManager = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
+//        DownloadManager.Request request = new DownloadManager.Request(uri);
+//        request.setTitle("Data Download");
+//        request.setDescription("Android Data download using DownloadManager.");
+//        request.setDestinationInExternalFilesDir(ARActivity.this, Environment.DIRECTORY_DOWNLOADS,"AndroidTutorialPoint.mp3");
+//        downloadReference = downloadManager.enqueue(request);
+//
+//        return downloadReference;
+//    }
 }

@@ -10,7 +10,7 @@ import ua.in.zeusapps.snapsafari.services.SnapSafariService;
 
 public class App extends Application {
 
-    public static final String BASE_URL = "http://46.101.73.111:7000/";
+    public static final String BASE_URL = "http://46.101.73.111:9000/";
 
     private SnapSafariService _service;
 

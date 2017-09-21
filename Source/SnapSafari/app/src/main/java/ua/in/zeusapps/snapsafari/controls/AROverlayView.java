@@ -20,6 +20,7 @@ import java.util.List;
 import ua.in.zeusapps.snapsafari.activities.ARActivity;
 import ua.in.zeusapps.snapsafari.common.LocationHelper;
 import ua.in.zeusapps.snapsafari.models.ARPoint;
+import ua.in.zeusapps.snapsafari.models.Event;
 
 
 public class AROverlayView extends AppCompatImageView {
@@ -27,21 +28,13 @@ public class AROverlayView extends AppCompatImageView {
     Context context;
     private float[] rotatedProjectionMatrix = new float[16];
     private Location currentLocation;
-    public List<ARPoint> arPoints;
+    public List<Event> events;
 
 
     public AROverlayView(Context context) {
         super(context);
 
         this.context = context;
-
-        //Demo points
-        arPoints = new ArrayList<ARPoint>() {{
-            add(new ARPoint("Point1", 50.480363, 30.668455, 0));
-        }};
-
-//        this.setBackgroundResource(R.drawable.elephant);
-//        AnimationDrawable elephantAnimation = elephantImageView.getBackground();
     }
 
     public void updateRotatedProjectionMatrix(float[] rotatedProjectionMatrix) {
@@ -69,36 +62,36 @@ public class AROverlayView extends AppCompatImageView {
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
         paint.setTextSize(60);
 
-        for (int i = 0; i < arPoints.size(); i ++) {
-            float[] currentLocationInECEF = LocationHelper.WSG84toECEF(currentLocation);
-            float[] pointInECEF = LocationHelper.WSG84toECEF(arPoints.get(i).getLocation());
-            float[] pointInENU = LocationHelper.ECEFtoENU(currentLocation, currentLocationInECEF, pointInECEF);
-
-            float[] cameraCoordinateVector = new float[4];
-            Matrix.multiplyMV(cameraCoordinateVector, 0, rotatedProjectionMatrix, 0, pointInENU, 0);
-
-            // cameraCoordinateVector[2] is z, that always less than 0 to display on right position
-            // if z > 0, the point will display on the opposite
-            if (cameraCoordinateVector[2] < 0) {
-                float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
-                float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
-
-//                canvas.drawCircle(x, y, radius, paint);
-//                canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
-
-//                Paint p = new Paint();
-//                Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.elephant_00001);
-//                canvas.drawBitmap(b, 0, 0, p);
-
-                Context context = getContext();
-                while (context instanceof ContextWrapper) {
-                    if (context instanceof ARActivity) {
-                        ((ARActivity) context).changeElephantCoords(x, y);
-                        break;
-                    }
-                    context = ((ContextWrapper)context).getBaseContext();
-                }
-            }
-        }
+//        for (int i = 0; i < arPoints.size(); i ++) {
+//            float[] currentLocationInECEF = LocationHelper.WSG84toECEF(currentLocation);
+//            float[] pointInECEF = LocationHelper.WSG84toECEF(arPoints.get(i).getLocation());
+//            float[] pointInENU = LocationHelper.ECEFtoENU(currentLocation, currentLocationInECEF, pointInECEF);
+//
+//            float[] cameraCoordinateVector = new float[4];
+//            Matrix.multiplyMV(cameraCoordinateVector, 0, rotatedProjectionMatrix, 0, pointInENU, 0);
+//
+//            // cameraCoordinateVector[2] is z, that always less than 0 to display on right position
+//            // if z > 0, the point will display on the opposite
+//            if (cameraCoordinateVector[2] < 0) {
+//                float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
+//                float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
+//
+////                canvas.drawCircle(x, y, radius, paint);
+////                canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
+//
+////                Paint p = new Paint();
+////                Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.elephant_00001);
+////                canvas.drawBitmap(b, 0, 0, p);
+//
+//                Context context = getContext();
+//                while (context instanceof ContextWrapper) {
+//                    if (context instanceof ARActivity) {
+//                        ((ARActivity) context).changeElephantCoords(x, y);
+//                        break;
+//                    }
+//                    context = ((ContextWrapper)context).getBaseContext();
+//                }
+//            }
+//        }
     }
 }

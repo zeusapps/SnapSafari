@@ -1,13 +1,20 @@
 package ua.in.zeusapps.snapsafari.services;
 
+import java.io.File;
 import java.util.List;
+import java.util.Observable;
 
 import io.reactivex.Flowable;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
+import ua.in.zeusapps.snapsafari.models.CardAnimation;
 import ua.in.zeusapps.snapsafari.models.Card;
 import ua.in.zeusapps.snapsafari.models.Event;
 import ua.in.zeusapps.snapsafari.models.EventRequest;
@@ -38,4 +45,7 @@ public interface SnapSafariService {
 
     @POST("events/events_with_filter/")
     Flowable<List<Event>> getEvents(@Header(AUTH_HEADER)String header, @Body EventRequest request);
+
+    @GET
+    Flowable<CardAnimation> getAnimation(@Header(AUTH_HEADER) String token, @Url String url);
 }
