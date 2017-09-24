@@ -25,48 +25,21 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:layout_gravity="start"
-            android:background="@drawable/button_twitter"
-            android:textColor="@android:color/white"
-            android:drawableEnd="@drawable/twitter"
-            android:drawableRight="@drawable/twitter"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="32dp"
-            android:textSize="18sp"
-            android:layout_margin="4dp"
+            style="@style/SnapSafariButton.Twitter"
             android:text="@string/activity_login_twitter_login"
 
             android:id="@+id/activity_login_twitter_login"/>
         <Button
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:textAllCaps="false"
-            android:layout_gravity="start"
-            android:background="@drawable/button_facebook"
-            android:textColor="@android:color/white"
-            android:drawableEnd="@drawable/facebook"
-            android:drawableRight="@drawable/facebook"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="32dp"
-            android:textSize="18sp"
-            android:layout_margin="4dp"
+            android:layout_height="wrap_content"
+            style="@style/SnapSafariButton.Facebook"
             android:text="@string/activity_login_facebook_login"
 
             android:id="@+id/activity_login_facebook_login"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:layout_gravity="start"
-            android:background="@drawable/button_gmail"
-            android:textColor="@android:color/white"
-            android:drawableEnd="@drawable/gmail"
-            android:drawableRight="@drawable/gmail"
-            android:gravity="start|center_vertical"
-            android:paddingLeft="32dp"
-            android:textSize="18sp"
-            android:layout_margin="4dp"
+            style="@style/SnapSafariButton.Gmail"
             android:text="@string/activity_login_gmail_login"
 
             android:id="@+id/activity_login_gmail_login"/>
