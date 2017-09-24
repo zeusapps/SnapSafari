@@ -25,4 +25,10 @@ public class WelcomeActivity extends ActivityBase {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
+    @OnClick(R.id.activity_welcome_register_button)
+    public void onRegister(){
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
 }
