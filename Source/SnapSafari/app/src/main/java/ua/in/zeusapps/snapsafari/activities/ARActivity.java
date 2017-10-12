@@ -1,7 +1,6 @@
 package ua.in.zeusapps.snapsafari.activities;
 
 import android.Manifest;
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
@@ -13,33 +12,39 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
+import android.media.Image;
 import android.opengl.Matrix;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.ArrayMap;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import ua.in.zeusapps.snapsafari.MainActivity;
 import ua.in.zeusapps.snapsafari.R;
+import ua.in.zeusapps.snapsafari.common.Layout;
 import ua.in.zeusapps.snapsafari.controls.ARCamera;
 import ua.in.zeusapps.snapsafari.controls.AROverlayView;
-import ua.in.zeusapps.snapsafari.models.CardAnimation;
+import ua.in.zeusapps.snapsafari.controls.AnimationsContainer;
 import ua.in.zeusapps.snapsafari.models.Card;
 import ua.in.zeusapps.snapsafari.models.Event;
 import ua.in.zeusapps.snapsafari.models.EventRequest;
@@ -55,8 +60,9 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
     private ARCamera arCamera;
     private TextView tvCurrentLocation;
     private TextView arPointLocationTextView;
-    ImageView elephantView;
-    private AnimationDrawable animatedElephant;
+//    ImageView elephantView;
+//    private AnimationDrawable animatedElephant;
+    HashMap<String, ImageView> animatedViews;
 
     private SensorManager sensorManager;
     private final static int REQUEST_CAMERA_PERMISSIONS_CODE = 11;
@@ -66,14 +72,16 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
     private static final long MIN_TIME_BW_UPDATES = 0;//1000 * 60 * 1; // 1 minute
 
     private LocationManager locationManager;
-    public Location location;
-    boolean isGPSEnabled;
-    boolean isNetworkEnabled;
-    boolean locationServiceAvailable;
+    private Location location;
+    private boolean isGPSEnabled;
+    private boolean isNetworkEnabled;
+    private boolean locationServiceAvailable;
+    private boolean isARPointsUpdated = false;
 
     private List<Event> _events;
+    private List<AnimationsContainer> _containers;
     private Card _card;
-    DownloadManager downloadManager;
+//  private  DownloadManager downloadManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,14 +92,9 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
         List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
         cameraContainerLayout = (FrameLayout) findViewById(R.id.camera_container_layout);
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
-        tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
-        arPointLocationTextView = (TextView) findViewById(R.id.ar_point_location);
+//        tvCurrentLocation = (TextView) findViewById(R.id.tv_current_location);
+//        arPointLocationTextView = (TextView) findViewById(R.id.ar_point_location);
         arOverlayView = new AROverlayView(this);
-
-        elephantView = (ImageView) findViewById(R.id.animated_elephant);
-        elephantView.setBackgroundResource(R.drawable.animated_elephant);
-        animatedElephant = (AnimationDrawable) elephantView.getBackground();
-        elephantView.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -101,20 +104,29 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
         requestCameraPermission();
         registerSensors();
         initAROverlayView();
-        animatedElephant.start();
     }
 
     @Override
     public void onPause() {
         releaseCamera();
         super.onPause();
-        animatedElephant.stop();
     }
 
-    public void changeElephantCoords(float x, float y) {
-        elephantView.setVisibility(View.VISIBLE);
-        elephantView.setY(y);
-        elephantView.setX(x);
+    public void moveAnimationTo(float x, float y, String kind_id) {
+        ImageView animatedView = animatedViews.get(kind_id);
+        if (animatedView == null) {
+            return;
+//            animatedView = animatedViews.get("elephant");
+        }
+
+//        animatedView.setVisibility(View.VISIBLE);
+        animatedView.setX(x);
+        animatedView.setY(y);
+
+//        AnimationDrawable animation = (AnimationDrawable) animatedView.getBackground();
+//        if (!animation.isRunning()) {
+//            animation.start();
+//        }
     }
 
     public void requestCameraPermission() {
@@ -273,14 +285,13 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
     private void updateLatestLocation() {
         if (arOverlayView !=null) {
             arOverlayView.updateCurrentLocation(location);
-            tvCurrentLocation.setText(String.format("lat: %s \nlon: %s \naltitude: %s \n",
-                    location.getLatitude(), location.getLongitude(), location.getAltitude()));
+//            tvCurrentLocation.setText(String.format("lat: %s \nlon: %s \naltitude: %s \n", location.getLatitude(), location.getLongitude(), location.getAltitude()));
         }
     }
 
     @Override
     public void onLocationChanged(Location location) {
-        if (location != null && this.location == null) {
+        if (location != null && !isARPointsUpdated) {
             updateCards(location);
         }
         this.location = location;
@@ -304,8 +315,9 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
 
     private void updateCards(Location location) {
 
-//        EventRequest request = new EventRequest(location.getLongitude(), location.getLatitude(), 1000);
-        EventRequest request = new EventRequest((float)(50.51576066295344), (float)(30.60552879457229), 1000);
+//        EventRequest request = new EventRequest((float)(location.getLongitude()), (float)(location.getLatitude()), 1000);
+//        SK: debug
+        EventRequest request = new EventRequest((float)(-1.20888889), (float)(36.7959), 1000);
 
         getApp().getService()
                 .getEvents(getToken(), request)
@@ -316,6 +328,17 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
                     public void accept(@NonNull List<Event> events) throws Exception {
                         _events = events;
                         arOverlayView.events = events;
+                        isARPointsUpdated = true;
+
+                        _containers = new ArrayList<AnimationsContainer>();
+
+                        if (events.size() > 0) {
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    initializeAnimation();
+                                }
+                            });
+                        }
 //                        ArrayList<CardAnimation> cardAnimations = new ArrayList<CardAnimation>();
 //                        for (final Event event: events) {
 //                            String url = "cards/get_animal_animation/" + event.getCard().getKindID() + "&" + event.getCard().getElement()+"/";
@@ -337,7 +360,6 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
 //                                        }
 //                                    });
 //                        }
-
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -346,6 +368,72 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
                     }
                 });
 
+    }
+
+    private void initializeAnimation() {
+
+        animatedViews = new HashMap<String, ImageView>();
+
+        FrameLayout mainLayout = (FrameLayout) findViewById(R.id.activity_ar);
+        LayoutInflater inflater = getLayoutInflater();
+
+        for (Event event : _events) {
+            String kind = event.getCard().getKindID();
+            if (animatedViews.get(kind) != null) {
+                continue;
+            }
+            View view = (View) inflater.inflate(R.layout.animation_container, mainLayout, false);
+            mainLayout.addView(view);
+            ImageView imageView = (ImageView)view.findViewById(R.id.animation_frame);
+            addDrawable(imageView, kind);
+            animatedViews.put(kind, imageView);
+            break;
+        }
+    }
+
+    private void addDrawable(ImageView view, String kind) {
+        String fileName = null;
+        if (kind.equals("buffalo")) {
+            fileName = "al_buffalo";
+        } else if (kind.equals("crocodile")) {
+            fileName = "al_crocodile";
+        } else if (kind.equals("elephant")) {
+            fileName = "al_elephant";
+        } else if (kind.equals("frog")) {
+            fileName = "al_frog";
+        } else if (kind.equals("giraffe")) {
+//            fileName  = "al_giraffe";
+        } else if (kind.equals("hippo")) {
+//            fileName  = "al_hippo";
+        } else if (kind.equals("leopard")) {
+            fileName.equals("al_leopard");
+        } else if (kind.equals("lion")) {
+//            fileName  = "al_lion";
+        } else if (kind.equals("owl")) {
+//            fileName  = "al_owl";
+        } else if (kind.equals("rhino")) {
+            fileName = "al_rhino";
+        } else if (kind.equals("wild_dog")) {
+            fileName = "al_wild_dog";
+        }
+
+        fileName = "al_buffalo";
+
+        if (fileName == null) {
+            return;
+        }
+
+        String[] frameNames = getResources().getStringArray(R.array.buffalo);
+        int count = frameNames.length;
+        int[] frameIDs = new int[frameNames.length];
+
+        for (int i = 0; i < count; i++) {
+            frameIDs[i] = getResources().getIdentifier(frameNames[i], "drawable", getPackageName());
+        }
+        AnimationsContainer container = new AnimationsContainer(view);
+        container.addAllFrames(frameIDs, 50);
+        container.start();
+        _containers.add(container);
     }
 
 //    private long downloadData (Uri uri) {

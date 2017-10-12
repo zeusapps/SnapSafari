@@ -51,47 +51,61 @@ public class AROverlayView extends AppCompatImageView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if (currentLocation == null) {
+        if (currentLocation == null || events == null || events.size() == 0) {
             return;
         }
 
-        final int radius = 60;
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.GREEN);
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-        paint.setTextSize(60);
+//        final int radius = 60;
+//        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//        paint.setStyle(Paint.Style.FILL);
+//        paint.setColor(Color.GREEN);
+//        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+//        paint.setTextSize(60);
 
-//        for (int i = 0; i < arPoints.size(); i ++) {
-//            float[] currentLocationInECEF = LocationHelper.WSG84toECEF(currentLocation);
-//            float[] pointInECEF = LocationHelper.WSG84toECEF(arPoints.get(i).getLocation());
-//            float[] pointInENU = LocationHelper.ECEFtoENU(currentLocation, currentLocationInECEF, pointInECEF);
-//
-//            float[] cameraCoordinateVector = new float[4];
-//            Matrix.multiplyMV(cameraCoordinateVector, 0, rotatedProjectionMatrix, 0, pointInENU, 0);
-//
-//            // cameraCoordinateVector[2] is z, that always less than 0 to display on right position
-//            // if z > 0, the point will display on the opposite
-//            if (cameraCoordinateVector[2] < 0) {
-//                float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
-//                float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
-//
-////                canvas.drawCircle(x, y, radius, paint);
-////                canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
-//
-////                Paint p = new Paint();
-////                Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.elephant_00001);
-////                canvas.drawBitmap(b, 0, 0, p);
-//
-//                Context context = getContext();
-//                while (context instanceof ContextWrapper) {
-//                    if (context instanceof ARActivity) {
-//                        ((ARActivity) context).changeElephantCoords(x, y);
-//                        break;
-//                    }
-//                    context = ((ContextWrapper)context).getBaseContext();
-//                }
-//            }
-//        }
+        for (Event event: events) {
+            Location pointLocation = event.getArPoint().getLocation();
+            if (pointLocation == null) {
+                continue;
+            }
+            float[] currentLocationInECEF = LocationHelper.WSG84toECEF(currentLocation);
+            float[] pointInECEF = LocationHelper.WSG84toECEF(pointLocation);
+            float[] pointInENU = LocationHelper.ECEFtoENU(currentLocation, currentLocationInECEF, pointInECEF);
+
+            float[] cameraCoordinateVector = new float[4];
+            Matrix.multiplyMV(cameraCoordinateVector, 0, rotatedProjectionMatrix, 0, pointInENU, 0);
+
+            // cameraCoordinateVector[2] is z, that always less than 0 to display on right position
+            // if z > 0, the point will display on the opposite
+            if (cameraCoordinateVector[2] < 0) {
+                float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
+                float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
+
+//                canvas.drawCircle(x, y, radius, paint);
+//                canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
+
+//                Paint p = new Paint();
+//                Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.elephant_00001);
+//                canvas.drawBitmap(b, 0, 0, p);
+
+                Context context = getContext();
+                while (context instanceof ContextWrapper) {
+                    if (context instanceof ARActivity) {
+                        ((ARActivity) context).moveAnimationTo(x, y, event.getCard().getKindID());
+                        break;
+                    }
+                    context = ((ContextWrapper)context).getBaseContext();
+                }
+            } else {
+                //SK: fro debug
+                Context context = getContext();
+                while (context instanceof ContextWrapper) {
+                    if (context instanceof ARActivity) {
+                        ((ARActivity) context).moveAnimationTo(160, 200, event.getCard().getKindID());
+                        break;
+                    }
+                    context = ((ContextWrapper) context).getBaseContext();
+                }
+            }
+        }
     }
 }

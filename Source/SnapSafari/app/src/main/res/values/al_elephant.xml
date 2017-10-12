@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="elephant">
+    <item>elephant_00001</item>
+    <item>elephant_00002</item>
+    <item>elephant_00003</item>
+    <item>elephant_00004</item>
+    <item>elephant_00005</item>
+    <item>elephant_00006</item>
+    <item>elephant_00007</item>
+    <item>elephant_00008</item>
+    <item>elephant_00009</item>
+    <item>elephant_00010</item>
+    </string-array>
+</resources>

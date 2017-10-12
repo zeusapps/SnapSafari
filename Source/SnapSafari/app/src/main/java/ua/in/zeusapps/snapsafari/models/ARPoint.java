@@ -40,4 +40,15 @@ public class ARPoint {
         this.coordinate = coordinate;
     }
 
+    public Location getLocation() {
+        if (getCoordinate().getLatitude() != 0 && getCoordinate().getLongitude() != 0) {
+            Location location = new Location("");
+            location.setLatitude(getCoordinate().getLatitude());
+            location.setLongitude(getCoordinate().getLongitude());
+            location.setAltitude(getAltitude());
+            return location;
+        } else {
+            return null;
+        }
+    }
 }
