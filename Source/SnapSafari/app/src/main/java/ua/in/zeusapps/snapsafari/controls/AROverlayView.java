@@ -90,7 +90,7 @@ public class AROverlayView extends AppCompatImageView {
                 Context context = getContext();
                 while (context instanceof ContextWrapper) {
                     if (context instanceof ARActivity) {
-                        ((ARActivity) context).moveAnimationTo(x, y, event.getCard().getKindID());
+                        ((ARActivity) context).moveAnimationTo(x, y, event.getId());
                         break;
                     }
                     context = ((ContextWrapper)context).getBaseContext();
@@ -100,7 +100,7 @@ public class AROverlayView extends AppCompatImageView {
                 Context context = getContext();
                 while (context instanceof ContextWrapper) {
                     if (context instanceof ARActivity) {
-                        ((ARActivity) context).moveAnimationTo(160, 200, event.getCard().getKindID());
+                        ((ARActivity) context).moveAnimationTo(160, 200, event.getCard().getId());
                         break;
                     }
                     context = ((ContextWrapper) context).getBaseContext();

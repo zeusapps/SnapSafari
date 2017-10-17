@@ -237,7 +237,7 @@ public class AnimationsContainer {
             if (mRecycleBitmap != null)
                 options.inBitmap = mRecycleBitmap;
             mRecycleBitmap = BitmapFactory.decodeResource(currentResoruces, params[0], options);
-            BitmapDrawable drawable = new BitmapDrawable(currentResoruces, mRecycleBitmap);
+            BitmapDrawable drawable = new BitmapDrawable(currentResoruces, Bitmap.createScaledBitmap(mRecycleBitmap, 200, 200, false));
             return drawable;
         }
 

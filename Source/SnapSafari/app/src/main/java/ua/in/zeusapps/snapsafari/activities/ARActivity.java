@@ -62,7 +62,7 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
     private TextView arPointLocationTextView;
 //    ImageView elephantView;
 //    private AnimationDrawable animatedElephant;
-    HashMap<String, ImageView> animatedViews;
+    HashMap<Integer, ImageView> animatedViews;
 
     private SensorManager sensorManager;
     private final static int REQUEST_CAMERA_PERMISSIONS_CODE = 11;
@@ -112,8 +112,8 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
         super.onPause();
     }
 
-    public void moveAnimationTo(float x, float y, String kind_id) {
-        ImageView animatedView = animatedViews.get(kind_id);
+    public void moveAnimationTo(float x, float y, int eventID) {
+        ImageView animatedView = animatedViews.get(eventID);
         if (animatedView == null) {
             return;
 //            animatedView = animatedViews.get("elephant");
@@ -122,6 +122,9 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
 //        animatedView.setVisibility(View.VISIBLE);
         animatedView.setX(x);
         animatedView.setY(y);
+
+//        animatedView.setX(100);
+//        animatedView.setY(100);
 
 //        AnimationDrawable animation = (AnimationDrawable) animatedView.getBackground();
 //        if (!animation.isRunning()) {
@@ -291,8 +294,9 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
 
     @Override
     public void onLocationChanged(Location location) {
-        if (location != null && !isARPointsUpdated) {
+        if (location != null && !isARPointsUpdated ) {
             updateCards(location);
+            isARPointsUpdated = true;
         }
         this.location = location;
         updateLatestLocation();
@@ -315,9 +319,9 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
 
     private void updateCards(Location location) {
 
-//        EventRequest request = new EventRequest((float)(location.getLongitude()), (float)(location.getLatitude()), 1000);
+        EventRequest request = new EventRequest((float)(location.getLongitude()), (float)(location.getLatitude()), 1000);
 //        SK: debug
-        EventRequest request = new EventRequest((float)(-1.20888889), (float)(36.7959), 1000);
+//        EventRequest request = new EventRequest((float)(-1.20888889), (float)(36.7959), 1000);
 
         getApp().getService()
                 .getEvents(getToken(), request)
@@ -372,7 +376,7 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
 
     private void initializeAnimation() {
 
-        animatedViews = new HashMap<String, ImageView>();
+        animatedViews = new HashMap<Integer, ImageView>();
 
         FrameLayout mainLayout = (FrameLayout) findViewById(R.id.activity_ar);
         LayoutInflater inflater = getLayoutInflater();
@@ -386,8 +390,7 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
             mainLayout.addView(view);
             ImageView imageView = (ImageView)view.findViewById(R.id.animation_frame);
             addDrawable(imageView, kind);
-            animatedViews.put(kind, imageView);
-            break;
+            animatedViews.put(event.getId(), imageView);
         }
     }
 
@@ -417,13 +420,12 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
             fileName = "al_wild_dog";
         }
 
-        fileName = "al_buffalo";
-
         if (fileName == null) {
             return;
         }
 
-        String[] frameNames = getResources().getStringArray(R.array.buffalo);
+        int fileID = getResources().getIdentifier(kind, "array", getPackageName());
+        String[] frameNames = getResources().getStringArray(fileID);
         int count = frameNames.length;
         int[] frameIDs = new int[frameNames.length];
 
