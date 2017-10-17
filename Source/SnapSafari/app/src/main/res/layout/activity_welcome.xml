@@ -36,14 +36,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_menu"
-            android:layout_margin="4dp"
-            android:textAllCaps="false"
-            android:layout_gravity="start"
-            android:gravity="start|center"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"
-            android:textSize="18sp"
+            style="@style/SnapSafariButton.Button"
             android:text="@string/activity_welcome_register"
             android:drawableRight="@drawable/register"
             android:id="@+id/activity_welcome_register_button"/>
@@ -51,14 +44,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_menu"
-            android:layout_margin="4dp"
-            android:textAllCaps="false"
-            android:layout_gravity="start"
-            android:gravity="start|center"
-            android:paddingLeft="32dp"
-            android:paddingRight="32dp"
-            android:textSize="18sp"
+            style="@style/SnapSafariButton.Button"
             android:text="@string/activity_welcome_login"
             android:drawableRight="@drawable/login"
             android:id="@+id/activity_welcome_login_button"/>
@@ -78,7 +64,8 @@
             android:drawableRight="@drawable/try_it"
             android:drawableEnd="@drawable/try_it"
             android:textColor="@android:color/white"
-            android:id="@+id/activity_welcome_try_it_login"/>
+            android:id="@+id/activity_welcome_try_it_login"
+            android:visibility="gone"/>
 
 
     </LinearLayout>

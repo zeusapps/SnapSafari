@@ -22,4 +22,6 @@
     <color name="colorPromoCode">#0072bb</color>
     <color name="colorFilterBackground">#b48a39</color>
     <color name="colorFilterSelected">#fdcd2b</color>
+    <color name="colorLoginBackground">#531915</color>
+    <color name="colorLoginForeground">#fcc92e</color>
 </resources>

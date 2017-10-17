@@ -8,4 +8,45 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SnapSafariButton.Base" parent="@android:style/Widget.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingLeft">32dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+
+    <style name="SnapSafariButton.Twitter" parent="SnapSafariButton.Base">
+        <item name="android:background">@drawable/button_twitter</item>
+        <item name="android:drawableEnd">@drawable/twitter</item>
+        <item name="android:drawableRight">@drawable/twitter</item>
+    </style>
+
+    <style name="SnapSafariButton.Facebook" parent="SnapSafariButton.Base">
+        <item name="android:background">@drawable/button_facebook</item>
+        <item name="android:drawableEnd">@drawable/facebook</item>
+        <item name="android:drawableRight">@drawable/facebook</item>
+    </style>
+
+    <style name="SnapSafariButton.Gmail" parent="SnapSafariButton.Base">
+        <item name="android:background">@drawable/button_gmail</item>
+        <item name="android:drawableEnd">@drawable/gmail</item>
+        <item name="android:drawableRight">@drawable/gmail</item>
+    </style>
+
+    <style name="SnapSafariButton.Button" parent="SnapSafariButton.Base">
+        <item name="android:background">@drawable/button_menu</item>
+        <item name="android:textColor">@color/colorLabel</item>
+    </style>
+
+    <style name="SnapSafariEditText" parent="@style/Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@color/colorLoginForeground</item>
+    </style>
 </resources>
