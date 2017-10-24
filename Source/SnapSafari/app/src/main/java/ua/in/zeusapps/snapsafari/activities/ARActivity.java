@@ -60,13 +60,11 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
     private ARCamera arCamera;
     private TextView tvCurrentLocation;
     private TextView arPointLocationTextView;
-//    ImageView elephantView;
-//    private AnimationDrawable animatedElephant;
     HashMap<Integer, ImageView> animatedViews;
 
     private SensorManager sensorManager;
     private final static int REQUEST_CAMERA_PERMISSIONS_CODE = 11;
-    public static final int REQUEST_LOCATION_PERMISSIONS_CODE = 0;
+    private final static int REQUEST_LOCATION_PERMISSIONS_CODE = 0;
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 10 meters
     private static final long MIN_TIME_BW_UPDATES = 0;//1000 * 60 * 1; // 1 minute
@@ -81,7 +79,6 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
     private List<Event> _events;
     private List<AnimationsContainer> _containers;
     private Card _card;
-//  private  DownloadManager downloadManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -319,10 +316,11 @@ public class ARActivity extends ActivityBase implements SensorEventListener, Loc
 
     private void updateCards(Location location) {
 
-        EventRequest request = new EventRequest((float)(location.getLongitude()), (float)(location.getLatitude()), 1000);
+//        EventRequest request = new EventRequest((float)(location.getLongitude()), (float)(location.getLatitude()), 1000);
 //        SK: debug
 //        EventRequest request = new EventRequest((float)(-1.20888889), (float)(36.7959), 1000);
-
+//        SK: customer location
+        EventRequest request = new EventRequest((float)(-1.20888889), (float)(36.7959), 1000);
         getApp().getService()
                 .getEvents(getToken(), request)
                 .subscribeOn(Schedulers.io())

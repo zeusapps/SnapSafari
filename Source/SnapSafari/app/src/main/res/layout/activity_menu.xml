@@ -5,8 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background"
     tools:context="ua.in.zeusapps.snapsafari.activities.BlankActivity">
+
+    <FrameLayout
+        android:id="@+id/camera_container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <SurfaceView
+            android:id="@+id/surface_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+
     <ua.in.zeusapps.snapsafari.controls.Menu
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
