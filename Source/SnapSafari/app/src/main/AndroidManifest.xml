@@ -21,7 +21,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activities.LoginActivity"/>
         <activity android:name=".MainActivity"/>
-        <activity android:name=".activities.ARActivity"/>
         <activity android:name=".activities.BlankActivity"/>
         <activity android:name=".activities.ElephantActivity"/>
         <activity android:name=".activities.SnapActivity"/>

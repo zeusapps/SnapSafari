@@ -49,7 +49,7 @@ public abstract class ActivityBase extends AppCompatActivity {
     }
 
     protected String getToken(){
-        return getSharedPreferences(APP_NAME, MODE_PRIVATE)
-                .getString(TOKEN_NAME, null);
+        String str = getSharedPreferences(APP_NAME, MODE_PRIVATE).getString(TOKEN_NAME, null);
+        return str;
     }
 }

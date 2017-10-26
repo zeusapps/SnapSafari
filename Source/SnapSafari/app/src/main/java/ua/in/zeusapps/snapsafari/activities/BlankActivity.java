@@ -95,17 +95,19 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
     }
 
     @OnClick({ R.id.activity_menu_bottom_menu, R.id.activity_menu_menu})
-    public void onClick(View view){
+    public void onClick(View view) {
         int id = view.getId();
 
-        if (id == R.id.menu_hamburger){
+        if (id == R.id.menu_hamburger) {
             finish();
-            return;
-        }
-
-        if (id == R.id.bottom_menu_center){
+        } else if (id == R.id.bottom_menu_left) {
+            Intent intent = new Intent(this, SnapCardsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.bottom_menu_center) {
             Intent intent = new Intent(this, ElephantActivity.class);
             startActivity(intent);
+        } else if (id == R.id.bottom_menu_right) {
+
         }
     }
 
@@ -166,7 +168,7 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
         if (arOverlayView.getParent() != null) {
             ((ViewGroup) arOverlayView.getParent()).removeView(arOverlayView);
         }
-        cameraContainerLayout.addView(arOverlayView);
+        cameraContainerLayout.addView(arOverlayView, 1);
     }
 
     public void initARCameraView() {
@@ -281,6 +283,12 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
 
                 if (locationManager != null)  {
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    //SK: customer location
+//                    location.setLatitude(-1.28611111);
+//                    location.setLongitude(36.77944444);
+                    //dstudio
+                    this.location.setLatitude(-1.28611111);
+                    this.location.setLongitude(36.77894444);
                     if (location != null) {
                         updateLatestLocation();
                     }
@@ -301,11 +309,17 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
 
     @Override
     public void onLocationChanged(Location location) {
-        if (location != null && !isARPointsUpdated ) {
+        this.location = location;
+        //SK: customer location
+//        this.location.setLatitude(-1.28611111);
+//        this.location.setLongitude(36.77944444);
+        //dstudio
+        this.location.setLatitude(-1.28611111);
+        this.location.setLongitude(36.77894444);
+        if (this.location != null && !isARPointsUpdated ) {
             updateCards(location);
             isARPointsUpdated = true;
         }
-        this.location = location;
         updateLatestLocation();
     }
 
@@ -326,7 +340,7 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
 
     private void updateCards(Location location) {
 
-        EventRequest request = new EventRequest((float)(location.getLongitude()), (float)(location.getLatitude()), 1000);
+        EventRequest request = new EventRequest((float)(location.getLatitude()), (float)(location.getLongitude()), 1000);
 //        SK: debug
 //        EventRequest request = new EventRequest((float)(-1.20888889), (float)(36.7959), 1000);
 //        SK: customer location

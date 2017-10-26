@@ -29,7 +29,6 @@ import ua.in.zeusapps.snapsafari.common.Layout;
 import ua.in.zeusapps.snapsafari.controls.Menu;
 import ua.in.zeusapps.snapsafari.models.Card;
 import ua.in.zeusapps.snapsafari.models.SnapRequest;
-import ua.in.zeusapps.snapsafari.models.SnappedCard;
 
 @Layout(R.layout.activity_promo)
 public class PromoActivity extends ActivityBase {
@@ -83,9 +82,9 @@ public class PromoActivity extends ActivityBase {
         getApp().getService().snapCard(getToken(), request)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<SnappedCard>() {
+                .subscribe(new Consumer<Card>() {
                     @Override
-                    public void accept(@NonNull SnappedCard snappedCard) throws Exception {
+                    public void accept(@NonNull Card snappedCard) throws Exception {
                         Toast.makeText(PromoActivity.this, "Card snapped!", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(PromoActivity.this, SnapCardsActivity.class);

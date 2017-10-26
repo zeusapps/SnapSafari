@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import ua.in.zeusapps.snapsafari.R;
 import ua.in.zeusapps.snapsafari.activities.PromoActivity;
 import ua.in.zeusapps.snapsafari.common.Layout;
-import ua.in.zeusapps.snapsafari.models.SnappedCard;
+import ua.in.zeusapps.snapsafari.models.Card;
 
 @Layout(R.layout.fragment_promo)
 public class PromoFragment extends FragmentBase {
@@ -33,7 +33,7 @@ public class PromoFragment extends FragmentBase {
         _recyclerView.setAdapter(_adapter);
     }
 
-    public void addCards(List<SnappedCard> cards){
+    public void addCards(List<Card> cards){
         _adapter.addCards(cards);
     }
 
@@ -52,22 +52,22 @@ public class PromoFragment extends FragmentBase {
             ButterKnife.bind(this, itemView);
         }
 
-        public void update(final SnappedCard card){
+        public void update(final Card card){
             Picasso
                     .with(getContext())
-                    .load(getApp().getUri(card.getCard().getImage()))
+                    .load(getApp().getUri(card.getImage()))
                     .into(_cardImage);
             Picasso
                     .with(getContext())
-                    .load(getApp().getUri(card.getCard().getPromo().getImage()))
+                    .load(getApp().getUri(card.getPromo().getImage()))
                     .into(_image);
-            _title.setText(card.getCard().getTitle());
+            _title.setText(card.getTitle());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), PromoActivity.class);
-                    intent.putExtra(PromoActivity.CARD_EXTRA, card.getCard());
+                    intent.putExtra(PromoActivity.CARD_EXTRA, card);
 
                     getActivity().startActivity(intent);
                 }
@@ -77,7 +77,7 @@ public class PromoFragment extends FragmentBase {
 
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
-        private List<SnappedCard> _snappedCards = new ArrayList<>();
+        private List<Card> _snappedCards = new ArrayList<>();
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -97,10 +97,10 @@ public class PromoFragment extends FragmentBase {
             return _snappedCards.size();
         }
 
-        public void addCards(List<SnappedCard> cards){
+        public void addCards(List<Card> cards){
             _snappedCards.clear();
-            for (SnappedCard card:cards) {
-                if (card.getCard().getPromo() != null){
+            for (Card card:cards) {
+                if (card.getPromo() != null){
                     _snappedCards.add(card);
                 }
             }

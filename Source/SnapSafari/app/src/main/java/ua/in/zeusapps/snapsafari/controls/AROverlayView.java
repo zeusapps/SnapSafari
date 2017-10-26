@@ -2,24 +2,15 @@ package ua.in.zeusapps.snapsafari.controls;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.opengl.Matrix;
 import android.support.v7.widget.AppCompatImageView;
-import ua.in.zeusapps.snapsafari.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import ua.in.zeusapps.snapsafari.activities.ARActivity;
+import ua.in.zeusapps.snapsafari.activities.BlankActivity;
 import ua.in.zeusapps.snapsafari.common.LocationHelper;
-import ua.in.zeusapps.snapsafari.models.ARPoint;
 import ua.in.zeusapps.snapsafari.models.Event;
 
 
@@ -43,7 +34,9 @@ public class AROverlayView extends AppCompatImageView {
     }
 
     public void updateCurrentLocation(Location currentLocation){
-        this.currentLocation = currentLocation;
+//        this.currentLocation = currentLocation;
+        //SK: customer location
+        this.currentLocation = new Location("-1.28611111,36.77944444,1000");
         this.invalidate();
     }
 
@@ -51,16 +44,19 @@ public class AROverlayView extends AppCompatImageView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        if (currentLocation == null || events == null || events.size() == 0) {
-            return;
-        }
-
 //        final int radius = 60;
 //        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 //        paint.setStyle(Paint.Style.FILL);
 //        paint.setColor(Color.GREEN);
 //        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 //        paint.setTextSize(60);
+//
+//        canvas.drawCircle(100, 100, radius, paint);
+//        canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
+
+        if (currentLocation == null || events == null || events.size() == 0) {
+            return;
+        }
 
         for (Event event: events) {
             Location pointLocation = event.getArPoint().getLocation();
@@ -89,8 +85,8 @@ public class AROverlayView extends AppCompatImageView {
 
                 Context context = getContext();
                 while (context instanceof ContextWrapper) {
-                    if (context instanceof ARActivity) {
-                        ((ARActivity) context).moveAnimationTo(x, y, event.getId());
+                    if (context instanceof BlankActivity) {
+                        ((BlankActivity) context).moveAnimationTo(x, y, event.getId());
                         break;
                     }
                     context = ((ContextWrapper)context).getBaseContext();
@@ -99,8 +95,8 @@ public class AROverlayView extends AppCompatImageView {
                 //SK: fro debug
                 Context context = getContext();
                 while (context instanceof ContextWrapper) {
-                    if (context instanceof ARActivity) {
-                        ((ARActivity) context).moveAnimationTo(160, 200, event.getCard().getId());
+                    if (context instanceof BlankActivity) {
+                        ((BlankActivity) context).moveAnimationTo(160, 200, event.getCard().getId());
                         break;
                     }
                     context = ((ContextWrapper) context).getBaseContext();

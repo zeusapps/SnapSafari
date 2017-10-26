@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ua.in.zeusapps.snapsafari.R;
 import ua.in.zeusapps.snapsafari.common.Layout;
-import ua.in.zeusapps.snapsafari.models.SnappedCard;
+import ua.in.zeusapps.snapsafari.models.Card;
 
 @Layout(R.layout.fragment_elephant)
 public class ElephantFragment extends FragmentBase {
@@ -27,7 +27,7 @@ public class ElephantFragment extends FragmentBase {
     @BindView(R.id.fragment_elephant_recyclerView)
     RecyclerView _recyclerView;
 
-    public void addCards(List<SnappedCard> cards){
+    public void addCards(List<Card> cards){
         _adapter.addCards(cards);
     }
 
@@ -49,15 +49,15 @@ public class ElephantFragment extends FragmentBase {
             ButterKnife.bind(this, itemView);
         }
 
-        public void update(SnappedCard card){
-            Picasso.with(getContext()).load(getApp().getUri(card.getCard().getImage())).into(_image);
-            _title.setText(card.getCard().getTitle());
+        public void update(Card card){
+            Picasso.with(getContext()).load(getApp().getUri(card.getImage())).into(_image);
+            _title.setText(card.getTitle());
         }
     }
 
     private class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
-        private List<SnappedCard> _snappedCards = new ArrayList<>();
+        private List<Card> _snappedCards = new ArrayList<>();
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -77,7 +77,7 @@ public class ElephantFragment extends FragmentBase {
             return _snappedCards.size();
         }
 
-        public void addCards(List<SnappedCard> cards){
+        public void addCards(List<Card> cards){
             _snappedCards.clear();
             _snappedCards.addAll(cards);
             notifyDataSetChanged();

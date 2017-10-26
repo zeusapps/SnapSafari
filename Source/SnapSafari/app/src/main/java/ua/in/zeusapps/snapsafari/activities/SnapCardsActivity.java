@@ -29,14 +29,14 @@ import ua.in.zeusapps.snapsafari.fragments.BoostCardsFragment;
 import ua.in.zeusapps.snapsafari.fragments.ElephantFragment;
 import ua.in.zeusapps.snapsafari.fragments.FragmentBase;
 import ua.in.zeusapps.snapsafari.fragments.PromoFragment;
-import ua.in.zeusapps.snapsafari.models.SnappedCard;
+import ua.in.zeusapps.snapsafari.models.Card;
 
 @Layout(R.layout.activity_snap_cards)
 public class SnapCardsActivity extends ActivityBase {
 
     private String _selectedFilter = "E";
 
-    private List<SnappedCard> _snappedCards;
+    private List<Card> _snappedCards;
     private ElephantFragment _elephantFragment;
     private BoostCardsFragment _boostCardsFragment;
     private PromoFragment _promoFragment;
@@ -83,9 +83,9 @@ public class SnapCardsActivity extends ActivityBase {
         getApp().getService().getMyCards(getToken())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Consumer<List<SnappedCard>>() {
+                .subscribe(new Consumer<List<Card>>() {
                     @Override
-                    public void accept(@NonNull List<SnappedCard> snappedCards) throws Exception {
+                    public void accept(@NonNull List<Card> snappedCards) throws Exception {
                         _snappedCards = snappedCards;
 
                         View tab = getNewTab();
@@ -110,19 +110,19 @@ public class SnapCardsActivity extends ActivityBase {
 
     private void update(){
         int promoCardsCount = 0;
-        List<SnappedCard> promoCards = new ArrayList<>();
-        List<SnappedCard> cards = new ArrayList<>();
+        List<Card> promoCards = new ArrayList<>();
+        List<Card> cards = new ArrayList<>();
 
 
-        for (SnappedCard card: _snappedCards){
-            if (card.getCard().getPromo() != null){
+        for (Card card: _snappedCards){
+            if (card.getPromo() != null){
                 promoCardsCount++;
-                if (card.getCard().getElement().equals(_selectedFilter)){
+                if (card.getElement().equals(_selectedFilter)){
                     promoCards.add(card);
                 }
             }
 
-            if (card.getCard().getElement().equals(_selectedFilter)){
+            if (card.getElement().equals(_selectedFilter)){
                 cards.add(card);
             }
         }
