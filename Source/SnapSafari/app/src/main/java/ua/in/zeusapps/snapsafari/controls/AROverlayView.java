@@ -34,9 +34,7 @@ public class AROverlayView extends AppCompatImageView {
     }
 
     public void updateCurrentLocation(Location currentLocation){
-//        this.currentLocation = currentLocation;
-        //SK: customer location
-        this.currentLocation = new Location("-1.28611111,36.77944444,1000");
+        this.currentLocation = currentLocation;
         this.invalidate();
     }
 
@@ -92,15 +90,15 @@ public class AROverlayView extends AppCompatImageView {
                     context = ((ContextWrapper)context).getBaseContext();
                 }
             } else {
-                //SK: fro debug
-                Context context = getContext();
-                while (context instanceof ContextWrapper) {
-                    if (context instanceof BlankActivity) {
-                        ((BlankActivity) context).moveAnimationTo(160, 200, event.getCard().getId());
-                        break;
-                    }
-                    context = ((ContextWrapper) context).getBaseContext();
-                }
+                //SK: for debug
+//                Context context = getContext();
+//                while (context instanceof ContextWrapper) {
+//                    if (context instanceof BlankActivity) {
+//                        ((BlankActivity) context).moveAnimationTo(160, 200, event.getId());
+//                        break;
+//                    }
+//                    context = ((ContextWrapper) context).getBaseContext();
+//                }
             }
         }
     }

@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,6 +79,7 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
     private List<AnimationsContainer> _containers;
     private Card _card;
 
+    private boolean firstrun = true;
 
     @BindView(R.id.activity_menu_menu)
     Menu _menu;
@@ -132,18 +134,8 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
             return;
 //            animatedView = animatedViews.get("elephant");
         }
-
-//        animatedView.setVisibility(View.VISIBLE);
-        animatedView.setX(x);
-        animatedView.setY(y);
-
-//        animatedView.setX(100);
-//        animatedView.setY(100);
-
-//        AnimationDrawable animation = (AnimationDrawable) animatedView.getBackground();
-//        if (!animation.isRunning()) {
-//            animation.start();
-//        }
+        animatedView.setTranslationX(x);
+        animatedView.setTranslationY(y);
     }
 
     public void requestCameraPermission() {
@@ -287,8 +279,8 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
 //                    location.setLatitude(-1.28611111);
 //                    location.setLongitude(36.77944444);
                     //dstudio
-                    this.location.setLatitude(-1.28611111);
-                    this.location.setLongitude(36.77894444);
+//                    this.location.setLatitude(-1.28611111);
+//                    this.location.setLongitude(36.7794444);
                     if (location != null) {
                         updateLatestLocation();
                     }
@@ -314,8 +306,8 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
 //        this.location.setLatitude(-1.28611111);
 //        this.location.setLongitude(36.77944444);
         //dstudio
-        this.location.setLatitude(-1.28611111);
-        this.location.setLongitude(36.77894444);
+//        this.location.setLatitude(-1.28611111);
+//        this.location.setLongitude(36.7794444);
         if (this.location != null && !isARPointsUpdated ) {
             updateCards(location);
             isARPointsUpdated = true;
@@ -341,10 +333,6 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
     private void updateCards(Location location) {
 
         EventRequest request = new EventRequest((float)(location.getLatitude()), (float)(location.getLongitude()), 1000);
-//        SK: debug
-//        EventRequest request = new EventRequest((float)(-1.20888889), (float)(36.7959), 1000);
-//        SK: customer location
-//        EventRequest request = new EventRequest((float)(-1.20888889), (float)(36.7959), 1000);
         getApp().getService()
                 .getEvents(getToken(), request)
                 .subscribeOn(Schedulers.io())
@@ -400,7 +388,7 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
 
         animatedViews = new HashMap<Integer, ImageView>();
 
-        FrameLayout mainLayout = (FrameLayout) findViewById(R.id.activity_ar);
+        FrameLayout mainLayout = (FrameLayout) findViewById(R.id.camera_container_layout);
         LayoutInflater inflater = getLayoutInflater();
 
         for (Event event : _events) {
