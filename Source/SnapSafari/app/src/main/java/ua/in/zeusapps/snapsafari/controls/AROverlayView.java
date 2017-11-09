@@ -52,6 +52,8 @@ public class AROverlayView extends AppCompatImageView {
 //        canvas.drawCircle(100, 100, radius, paint);
 //        canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
 
+        float distance = 1000;
+
         if (currentLocation == null || events == null || events.size() == 0) {
             return;
         }
@@ -61,6 +63,15 @@ public class AROverlayView extends AppCompatImageView {
             if (pointLocation == null) {
                 continue;
             }
+            distance = currentLocation.distanceTo(pointLocation);
+            if (distance > 1000) {
+                distance = 1000;
+            }
+            float scale = (100 - distance / 10) / 100;
+            if (scale < 0.2) {
+                scale = 0.2f;
+            }
+
             float[] currentLocationInECEF = LocationHelper.WSG84toECEF(currentLocation);
             float[] pointInECEF = LocationHelper.WSG84toECEF(pointLocation);
             float[] pointInENU = LocationHelper.ECEFtoENU(currentLocation, currentLocationInECEF, pointInECEF);
@@ -84,7 +95,7 @@ public class AROverlayView extends AppCompatImageView {
                 Context context = getContext();
                 while (context instanceof ContextWrapper) {
                     if (context instanceof BlankActivity) {
-                        ((BlankActivity) context).moveAnimationTo(x, y, event.getId());
+                        ((BlankActivity) context).moveAnimationTo(x, y, scale, event.getId());
                         break;
                     }
                     context = ((ContextWrapper)context).getBaseContext();

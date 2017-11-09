@@ -128,7 +128,7 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
         super.onPause();
     }
 
-    public void moveAnimationTo(float x, float y, int eventID) {
+    public void moveAnimationTo(float x, float y, float scale, int eventID) {
         ImageView animatedView = animatedViews.get(eventID);
         if (animatedView == null) {
             return;
@@ -136,6 +136,8 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
         }
         animatedView.setTranslationX(x);
         animatedView.setTranslationY(y);
+        animatedView.setScaleX(scale);
+        animatedView.setScaleY(scale);
     }
 
     public void requestCameraPermission() {
@@ -279,8 +281,8 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
 //                    location.setLatitude(-1.28611111);
 //                    location.setLongitude(36.77944444);
                     //dstudio
-//                    this.location.setLatitude(-1.28611111);
-//                    this.location.setLongitude(36.7794444);
+                    this.location.setLatitude(-1.28611111);
+                    this.location.setLongitude(36.7794444);
                     if (location != null) {
                         updateLatestLocation();
                     }
@@ -306,8 +308,8 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
 //        this.location.setLatitude(-1.28611111);
 //        this.location.setLongitude(36.77944444);
         //dstudio
-//        this.location.setLatitude(-1.28611111);
-//        this.location.setLongitude(36.7794444);
+        this.location.setLatitude(-1.28611111);
+        this.location.setLongitude(36.7794444);
         if (this.location != null && !isARPointsUpdated ) {
             updateCards(location);
             isARPointsUpdated = true;
