@@ -286,8 +286,8 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
 //                    location.setLatitude(-1.28611111);
 //                    location.setLongitude(36.77944444);
                     //dstudio
-                    this.location.setLatitude(-1.28611111);
-                    this.location.setLongitude(36.7794444);
+//                    this.location.setLatitude(-1.28611111);
+//                    this.location.setLongitude(36.7794444);
                     if (location != null) {
                         updateLatestLocation();
                     }
@@ -313,8 +313,8 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
 //        this.location.setLatitude(-1.28611111);
 //        this.location.setLongitude(36.77944444);
         //dstudio
-        this.location.setLatitude(-1.28611111);
-        this.location.setLongitude(36.7794444);
+//        this.location.setLatitude(-1.28611111);
+//        this.location.setLongitude(36.7794444);
         if (this.location != null && !isARPointsUpdated ) {
             updateCards(location);
             isARPointsUpdated = true;
