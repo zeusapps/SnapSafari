@@ -26,6 +26,8 @@ public class LoginActivity extends ActivityBase {
     Button _facebookButton;
     @BindView(R.id.activity_login_gmail_login)
     Button _gmailButton;
+    @BindView(R.id.activity_login_email_login)
+    Button _emailButton;
 
     @OnClick({
             R.id.activity_login_twitter_login,
@@ -57,5 +59,14 @@ public class LoginActivity extends ActivityBase {
                         Toast.makeText(LoginActivity.this, "Login failed.", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @OnClick({
+            R.id.activity_login_email_login
+    })
+    public void onEmailLogin() {
+        Intent intent = new Intent(LoginActivity.this, EmailLoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

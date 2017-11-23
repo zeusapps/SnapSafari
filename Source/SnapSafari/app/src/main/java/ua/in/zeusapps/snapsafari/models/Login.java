@@ -14,7 +14,7 @@ public class Login {
     @Expose
     private String _email;
 
-    public Login(String username, String password) {
+     public Login(String username, String password) {
         _username = username;
         _password = password;
     }

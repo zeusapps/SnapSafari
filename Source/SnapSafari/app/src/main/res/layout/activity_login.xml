@@ -43,5 +43,13 @@
             android:text="@string/activity_login_gmail_login"
 
             android:id="@+id/activity_login_gmail_login"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/SnapSafariButton.Button"
+            android:text="@string/activity_login_email_login"
+
+            android:id="@+id/activity_login_email_login"/>
+
     </LinearLayout>
 </FrameLayout>

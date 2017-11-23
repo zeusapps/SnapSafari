@@ -64,10 +64,10 @@ public class AROverlayView extends AppCompatImageView {
                 continue;
             }
             distance = currentLocation.distanceTo(pointLocation);
-            if (distance > 1000) {
-                distance = 1000;
+            if (distance > 100) {
+                distance = 100;
             }
-            float scale = (100 - distance / 10) / 100;
+            float scale = (100 - distance) / 100;
             if (scale < 0.2) {
                 scale = 0.2f;
             }

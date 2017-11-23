@@ -26,6 +26,9 @@ public interface SnapSafariService {
     String AUTH_HEADER = "Authorization";
 
 
+    @POST("authorization/registration/")
+    Flowable<Token>register(@Body Login credentials);
+
     @POST("authorization/login/")
     Flowable<Token> getToken(@Body Login login);
 

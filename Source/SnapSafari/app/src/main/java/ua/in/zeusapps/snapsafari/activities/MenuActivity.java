@@ -9,6 +9,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import ua.in.zeusapps.snapsafari.App;
 import ua.in.zeusapps.snapsafari.R;
 import ua.in.zeusapps.snapsafari.common.Layout;
 
@@ -47,5 +48,18 @@ public class MenuActivity extends ActivityBase {
         Intent intent = new Intent(this, SnapCardsActivity.class);
 
         startActivity(intent);
+    }
+
+    @OnClick(R.id.activity_main_menu_settings_button)
+    public void onSettings() {
+
+        getSharedPreferences(App.TAG, MODE_APPEND)
+                .edit()
+                .putBoolean(App.REGISTERED, false)
+                .apply();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
