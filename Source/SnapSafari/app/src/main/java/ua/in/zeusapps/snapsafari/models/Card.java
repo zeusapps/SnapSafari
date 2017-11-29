@@ -90,6 +90,14 @@ public class Card implements Parcelable {
         this.level = level;
     }
 
+    public String getImageName() {
+        return "card_" + kindID;
+    }
+
+    public String getImage() {
+        return "test";
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -133,8 +141,4 @@ public class Card implements Parcelable {
             return new Card[size];
         }
     };
-
-    public String getImage() {
-        return "test";
-    }
 }

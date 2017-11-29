@@ -1,7 +1,6 @@
 package ua.in.zeusapps.snapsafari.activities;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -67,6 +66,7 @@ public class SnapActivity extends ActivityBase {
                         Toast.makeText(SnapActivity.this, message, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SnapActivity.this, SnapCardsActivity.class);
                         startActivity(intent);
+                        finish();
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -87,11 +87,12 @@ public class SnapActivity extends ActivityBase {
             _redeemButton.setVisibility(View.GONE);
         }
 
-        Uri image = getApp().getUri(card.getImage());
+        String imageName = card.getImageName();
+        int res = getResources().getIdentifier(card.getImageName(), "mipmap", getPackageName());
+
         Picasso
                 .with(this)
-                .load(image)
-                .placeholder(R.drawable.elephant)
+                .load(getResources().getIdentifier(card.getImageName(), "mipmap", getPackageName()))
                 .into(_imageImageView);
         Picasso
                 .with(this)
@@ -106,13 +107,13 @@ public class SnapActivity extends ActivityBase {
 
     private int getElementResource(Card card){
         switch (card.getElement()){
-            case "E":
+            case "earth":
                 return R.drawable.earth;
-            case "F":
+            case "fire":
                 return R.drawable.fire;
-            case "W":
+            case "water":
                 return R.drawable.water;
-            case "A":
+            case "air":
                 return R.drawable.wind;
         }
 

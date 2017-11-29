@@ -109,10 +109,9 @@ public class ElephantActivity extends ActivityBase {
     }
 
     private void showCard(Card card){
-        Uri image = getApp().getUri(card.getImage());
         Picasso
                 .with(this)
-                .load(image)
+                .load(card.getImage())
                 .placeholder(R.drawable.elephant)
                 .into(_imageView);
 
