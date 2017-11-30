@@ -34,7 +34,7 @@ import ua.in.zeusapps.snapsafari.models.Card;
 @Layout(R.layout.activity_snap_cards)
 public class SnapCardsActivity extends ActivityBase {
 
-    private String _selectedFilter = "E";
+    private String _selectedFilter = "earth";
 
     private List<Card> _snappedCards;
     private ElephantFragment _elephantFragment;
@@ -75,10 +75,10 @@ public class SnapCardsActivity extends ActivityBase {
         _viewPager.setAdapter(new Adapter(getSupportFragmentManager()));
         _tabLayout.setupWithViewPager(_viewPager);
 
-        _filters.add(new FilterHolder(_earthButton, "E", R.drawable.earth_white, R.drawable.earth_green));
-        _filters.add(new FilterHolder(_airButton, "A", R.drawable.air_white, R.drawable.air_green));
-        _filters.add(new FilterHolder(_fireButton, "F", R.drawable.fire_white, R.drawable.fire_green));
-        _filters.add(new FilterHolder(_waterButton, "W", R.drawable.water_white, R.drawable.water_green));
+        _filters.add(new FilterHolder(_earthButton, "earth", R.drawable.earth_white, R.drawable.earth_green));
+        _filters.add(new FilterHolder(_airButton, "air", R.drawable.air_white, R.drawable.air_green));
+        _filters.add(new FilterHolder(_fireButton, "fire", R.drawable.fire_white, R.drawable.fire_green));
+        _filters.add(new FilterHolder(_waterButton, "water", R.drawable.water_white, R.drawable.water_green));
 
         getApp().getService().getMyCards(getToken())
                 .observeOn(AndroidSchedulers.mainThread())

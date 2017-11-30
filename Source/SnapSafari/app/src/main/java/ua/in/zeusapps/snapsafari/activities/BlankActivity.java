@@ -108,7 +108,8 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
         } else if (id == R.id.bottom_menu_center) {
             for (Event event : _events) {
                 if (this.location.distanceTo(event.getArPoint().getLocation()) < 50) {
-                    Intent intent = new Intent(this, ElephantActivity.class);
+                    Intent intent = new Intent(this, SnapActivity.class);
+                    intent.putExtra(SnapActivity.CARD_EXTRA, event.getCard());
                     startActivity(intent);
                     break;
                 }

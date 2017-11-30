@@ -50,7 +50,8 @@ public class ElephantFragment extends FragmentBase {
         }
 
         public void update(Card card){
-            Picasso.with(getContext()).load(getApp().getUri(card.getImage())).into(_image);
+            Picasso.with(getContext()).load(getResources().getIdentifier(card.getImageName(), "mipmap", getContext().getPackageName()))
+                    .into(_image);
             _title.setText(card.getTitle());
         }
     }
