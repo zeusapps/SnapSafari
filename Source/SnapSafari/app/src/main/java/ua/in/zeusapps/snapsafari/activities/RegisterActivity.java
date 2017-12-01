@@ -44,14 +44,7 @@ public class RegisterActivity extends ActivityBase {
                         new Consumer<Token>() {
                             @Override
                             public void accept(Token token) throws Exception {
-                                saveToken(token.getKey());
-
-//                                getSharedPreferences(App.TAG, MODE_APPEND)
-//                                        .edit()
-//                                        .putBoolean(App.REGISTERED, true)
-//                                        .apply();
-
-                                Intent intent = new Intent(RegisterActivity.this, MenuActivity.class);
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
