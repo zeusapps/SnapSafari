@@ -3,6 +3,7 @@ package ua.in.zeusapps.snapsafari.activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -14,6 +15,7 @@ import android.location.LocationManager;
 import android.opengl.Matrix;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +24,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -59,7 +62,8 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
     private ARCamera arCamera;
     private TextView tvCurrentLocation;
     private TextView arPointLocationTextView;
-    HashMap<Integer, ImageView> animatedViews;
+    private HashMap<Integer, ImageView> animatedViews;
+    private ImageButton catchButton;
 
     private SensorManager sensorManager;
     private final static int REQUEST_CAMERA_PERMISSIONS_CODE = 11;
@@ -94,6 +98,7 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
         cameraContainerLayout = (FrameLayout) findViewById(R.id.camera_container_layout);
         surfaceView = (SurfaceView) findViewById(R.id.surface_view);
         arOverlayView = new AROverlayView(this);
+        catchButton = (ImageButton) findViewById(R.id.bottom_menu_center);
     }
 
     @OnClick({ R.id.activity_menu_bottom_menu, R.id.activity_menu_menu})
@@ -106,13 +111,11 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
             Intent intent = new Intent(this, SnapCardsActivity.class);
             startActivity(intent);
         } else if (id == R.id.bottom_menu_center) {
-            for (Event event : _events) {
-                if (this.location.distanceTo(event.getArPoint().getLocation()) < 10) {
-                    Intent intent = new Intent(this, SnapActivity.class);
-                    intent.putExtra(SnapActivity.CARD_EXTRA, event.getCard());
-                    startActivity(intent);
-                    break;
-                }
+            Event nearestEvent = getNearestEvent();
+            if (nearestEvent != null) {
+                Intent intent = new Intent(this, SnapActivity.class);
+                intent.putExtra(SnapActivity.CARD_EXTRA, nearestEvent.getCard());
+                startActivity(intent);
             }
         } else if (id == R.id.bottom_menu_right) {
 
@@ -244,7 +247,6 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
     }
 
     private void initLocationService() {
-
         if ( Build.VERSION.SDK_INT >= 23 &&
                 ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
             return  ;
@@ -303,8 +305,19 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
     private void updateLatestLocation() {
         if (arOverlayView !=null) {
             arOverlayView.updateCurrentLocation(location);
-//            tvCurrentLocation.setText(String.format("lat: %s \nlon: %s \naltitude: %s \n", location.getLatitude(), location.getLongitude(), location.getAltitude()));
         }
+        updateCatchButton();
+    }
+
+    private void updateCatchButton() {
+        int res = 0;
+
+        if (getNearestEvent() == null) {
+            res = R.drawable.position;
+        } else {
+            res = R.mipmap.snap_button_active;
+        }
+        catchButton.setImageDrawable(ContextCompat.getDrawable(this.getBaseContext(), res));
     }
 
     @Override
@@ -454,6 +467,19 @@ public class BlankActivity extends ActivityBase implements SensorEventListener, 
         container.addAllFrames(frameIDs, 50);
         container.start();
         _containers.add(container);
+    }
+
+    private Event getNearestEvent() {
+        Event nearestEvent = null;
+        if (_events != null) {
+            for (Event event : _events) {
+                if (this.location.distanceTo(event.getArPoint().getLocation()) < 10) {
+                    nearestEvent = event;
+                    break;
+                }
+            }
+        }
+        return nearestEvent;
     }
 
 //    private long downloadData (Uri uri) {
